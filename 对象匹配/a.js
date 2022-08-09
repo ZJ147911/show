@@ -3,9 +3,9 @@
  * @Copyright (c) 2022 by 赵军/公司名, All Rights Reserved.
  * @Date         :2022-07-28 13:42:26
  * @Description  :
- * @FilePath     :\utilitiesappd:\Users\Gitee\项目展示\对象匹配\a.js
+ * @FilePath     :\项目展示\对象匹配\a.js
  * @LastEditors  :赵军
- * @LastEditTime :2022-07-28 14:42:05
+ * @LastEditTime :2022-08-04 09:10:25
  */
 
 const province_list = [
@@ -41,12 +41,12 @@ const province_list = [
 	{ cityName: "宁夏", code: "64", val: "864" },
 	{ cityName: "新疆", code: "65", val: "865" },
 ]
-// const getVal = (code) => {
-// 	return province_list.find((item) => {
-// 		return item.code == code
-// 	}).val
-// }
-// console.log(getVal(54))
+const getVal = (code) => {
+	return province_list.find((item) => {
+		return item.code == code
+	}).val
+}
+console.log(getVal(54))
 
 const dateNow = () => {
 	const time = new Date()
