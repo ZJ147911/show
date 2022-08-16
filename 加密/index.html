@@ -3,9 +3,9 @@
  * Copyright (c) 2022 by 赵军/公司名, All Rights Reserved.
  * @Date         :2022-07-29 14:55:10
  * @Description  :
- * @FilePath     :\utilitiesappd:\Users\Gitee\项目展示\加密\index.html
+ * @FilePath     :\documentsd:\Users\Gitee\项目展示\加密\index.html
  * @LastEditors  :赵军
- * @LastEditTime :2022-07-29 18:16:23
+ * @LastEditTime :2022-08-10 18:12:20
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -22,34 +22,33 @@
 		<script src="util/sm4.js"></script>
 	</body>
 	<script>
-
-let a = "HANDYSERVICEPAYM"
-// let	b = "qawsedrftadk"
-let	b = "qawsedrftgyhujik"
+		let a = "HANDYSERVICEPAYM"
+		// let	b = "qawsedrftadk"
+		let b = "qawsedrftgyhujik"
 		function testSm4() {
 			// const sm4Obj = new Sm4utils(a)
 			// const sm4TextEnc = sm4Obj.encryptData_ECB("赵军")
-			const sm4TextEnc = "+euG8Bj7d0vB/1WKjMOPSA=="
+			const sm4TextEnc = "QyAUjvpL9zR9rWCHzLQTZw=="
 			// console.log("密文1：", sm4TextEnc)
 			const sm4ObjDec = new Sm4utils(a)
 			const sm4Text = sm4ObjDec.decryptData_ECB(sm4TextEnc)
 			console.log("明文1：", sm4Text)
 
-			// const sm4Obj2 = new SM4Util(a)
-			// const sm4TextEnc2 = sm4Obj2.encryptData_ECB("赵军")
-			const sm4TextEnc2 = "+euG8Bj7d0vB/1WKjMOPSA=="
-			// console.log("密文2：", sm4TextEnc2)
-			const sm4ObjDec2 = new SM4Util(a)
-			const sm4Text2 = sm4ObjDec2.decryptData_ECB(sm4TextEnc2)
-			console.log("明文2：", sm4Text2)
+			// // const sm4Obj2 = new SM4Util(a)
+			// // const sm4TextEnc2 = sm4Obj2.encryptData_ECB("赵军")
+			// const sm4TextEnc2 = "+KfQKzh2iBYb0WtyctWJ7g=="
+			// // console.log("密文2：", sm4TextEnc2)
+			// const sm4ObjDec2 = new SM4Util(a)
+			// const sm4Text2 = sm4ObjDec2.decryptData_ECB(sm4TextEnc2)
+			// console.log("明文2：", sm4Text2)
 
-			// const sm4Obj3 = new SM4Util(a, b)
-			// const sm4TextEnc3 = sm4Obj3.encryptData_ECB("赵军")
-			const sm4TextEnc3 = "+euG8Bj7d0vB/1WKjMOPSA=="
-			// console.log("密文3：", sm4TextEnc3)
-			const sm4ObjDec3 = new SM4Util(a, b)
-			const sm4Text3 = sm4ObjDec3.decryptData_ECB(sm4TextEnc3)
-			console.log("明文3：", sm4Text3)
+			// // const sm4Obj3 = new SM4Util(a, b)
+			// // const sm4TextEnc3 = sm4Obj3.encryptData_ECB("赵军")
+			// const sm4TextEnc3 = "NIwKzjASEiToCCQndeMUjQ=="
+			// // console.log("密文3：", sm4TextEnc3)
+			// const sm4ObjDec3 = new SM4Util(a, b)
+			// const sm4Text3 = sm4ObjDec3.decryptData_ECB(sm4TextEnc3)
+			// console.log("明文3：", sm4Text3)
 		}
 		testSm4()
 	</script>
