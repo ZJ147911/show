@@ -2,11 +2,11 @@ const { log } = require("console")
 let fs = require("fs")
 let path = require("path")
 let myUrl = "D:/Users/Tian/utilitiesapp3.0/src"
-let imgUrl = "D:/Users/Tian/utilitiesapp3.0/static"
+let imgUrl = "D:/Users/Tian/utilitiesapp3.0/src/static"
 let imgs = [],
 	wen = [],
-	imgSize=[]
-const a = [".vue", ".js", ".scss"]
+	imgSize = []
+
 let read = (MyUrl, item) => {
 	fs.readdir(MyUrl, (err, files) => {
 		if (err) throw err
@@ -17,29 +17,21 @@ let read = (MyUrl, item) => {
 				//stat 状态中有两个函数一个是stat中有isFile ,isisDirectory等函数进行判断是文件还是文件夹
 				if (stat.isFile()) {
 					if (item === 1) {
-						// console.log(path.basename(file))
-						imgs.push(fPath)
+						imgs.push(fPath.replace(/\\/g, "/").replace("D:/Users/Tian/utilitiesapp3.0/src/", ""))
 					} else if (item === 2) {
 						wen.push(fPath)
-						// if (a.includes(path.extname(fPath))) {
-						// 	// sion(fPath)
-						// }
-						// console.log(path.extname(fPath))
-						// if (a.includes(path.extname(fPath))) {
-						// 	// sion(fPath)
-						// }
 					}
 				} else {
 					read(fPath, item)
 				}
 				// 筛选大于40kb的图片
 				if (stat.size > 40000) {
-					imgSize.push(file)
+					imgSize.push(fPath)
 				}
 			})
 		})
-		fs.writeFileSync("./wen.js", JSON.stringify(wen))
-		fs.writeFileSync("./imgs.js", JSON.stringify(imgs))
+		fs.writeFileSync("./wen.js", `exports.wen=${JSON.stringify(wen)}`)
+		fs.writeFileSync("./imgs.js", `exports.imgs=${JSON.stringify(imgs)}`)
 		fs.writeFileSync("./imgSize.js", JSON.stringify(imgSize))
 	})
 }
