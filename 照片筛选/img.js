@@ -7,7 +7,7 @@ let removeImgs1 = [],// 全部图片
 	removeImgs3 = []// 需删除
 let images = [".svg", ".jpg", ".png", ".gif"]
 
-imgs.forEach((it, index) => {
+imgs.forEach((it) => {
 	// let imgName = `${path.basename(it)}`
 	let imgName = it
 	removeImgs1.push(imgName)
@@ -33,9 +33,9 @@ a1.forEach((item) => {
 	}
 })
 
-fs.writeFileSync("./全部图片.js", JSON.stringify(removeImgs1))
-fs.writeFileSync("./有用图片.js", JSON.stringify(removeImgs2))
-fs.writeFileSync("./需删除.js", JSON.stringify(removeImgs3))
+fs.writeFileSync("./allPicture.js", JSON.stringify(removeImgs1))
+fs.writeFileSync("./use.js", JSON.stringify(removeImgs2))
+fs.writeFileSync("./delete.js", JSON.stringify(removeImgs3))
 
 removeImgs3.forEach((item) => {
 	fs.rmSync(`D:/Users/Tian/utilitiesapp3.0/src/${item}`)
