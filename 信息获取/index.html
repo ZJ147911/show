@@ -1,0 +1,120 @@
+<!--
+ * @Author       :赵军
+ * Copyright (c) 2022 by 赵军/公司名, All Rights Reserved.
+ * @Date         :2022-09-30 18:17:40
+ * @Description  :
+ * @FilePath     :\项目展示\index.html
+ * @LastEditors  :赵军
+ * @LastEditTime :2022-10-02 21:29:19
+-->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			.da {
+				width: 100vw;
+				height: 100vh;
+			}
+			#data {
+				display: block;
+				margin: 30px auto;
+				height: 100px;
+				font-size: 16px;
+				padding: 5px;
+				text-align: left;
+				line-height: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="da">
+			<textarea id="data"></textarea>
+		</div>
+	</body>
+	<script>
+		let productNo = '',
+			sessionKey = '';
+		const obj = {
+			ENV_H5_CONFIG: 'prod',
+			test: 'https://h5.test.bestpay.net',
+			pre: 'https://h5-pre.bestpay.com.cn',
+			prod: 'https://h5.bestpay.cn',
+
+			addScript(url, callback) {
+				const scriptDom = document.createElement('script');
+				scriptDom.setAttribute('type', 'text/javascript');
+				scriptDom.setAttribute('src', url);
+				document.getElementsByTagName('head')[0].appendChild(scriptDom);
+				scriptDom.onload = function () {
+					callback && callback();
+				};
+			},
+			autoLogin(params = {}) {
+				return new Promise((resolve, reject) => {
+					BestpayHtml5.User.autoLogin(
+						params,
+						(val) => {
+							resolve(val);
+						},
+						(err) => {
+							reject(err);
+						},
+						() => {}
+					);
+				});
+			},
+			getProductNo() {
+				if (productNo) {
+					return Promise.resolve(productNo);
+				}
+				return new Promise((resolve, reject) => {
+					BestpayHtml5.User.getProductNo(
+						{
+							noAutoLogin: true
+						},
+						(val) => {
+							resolve(val.productNo);
+						},
+						(err) => {
+							resolve('');
+						}
+					);
+				});
+			}
+		};
+		function setSaConfig(res) {
+			obj.autoLogin().then((val) => {
+				sessionKey = val.sessionKey;
+				if (val.value && val.value.productNo) {
+					productNo = val.value.productNo;
+				} else {
+					obj.getProductNo().then((value) => {
+						if (value) {
+							productNo = value;
+							document.getElementById('data').innerText = `${sessionKey}`;
+							console.log(
+								 `${sessionKey}`
+							);
+						}
+					});
+				}
+			});
+		}
+		if (!window.BestpayHtml5) {
+			obj.addScript(`${obj[obj.ENV_H5_CONFIG]}/common/js/bestpay-html5-3.0.js`, () => {
+				window.BestpayHtml5 && BestpayHtml5.config('0', false, '45', '4500', true);
+				setSaConfig();
+			});
+		} else {
+			setSaConfig();
+		}
+	</script>
+</html>
