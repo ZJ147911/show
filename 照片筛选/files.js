@@ -33,18 +33,18 @@ let read = (MyUrl, item) => {
 				} else {
 					read(fPath, item)
 				}
-				const A1 = [...new Set(wen)]
-				const A2 = [...new Set(imgs)]
-				const A3 = [...new Set(imgSize1)]
-				const A4 = [...new Set(imgSize2)]
-				const A5 = [...new Set(imgSize3)]
-				fs.writeFileSync("./wen.js", `exports.wen=${JSON.stringify(A1)}`)
-				fs.writeFileSync("./imgs.js", `exports.imgs=${JSON.stringify(A2)}`)
-				fs.writeFileSync("./imgSize1.js", `exports.imgSize=${JSON.stringify(A3)}`)
-				fs.writeFileSync("./imgSize2.js", `exports.imgSize=${JSON.stringify(A4)}`)
-				fs.writeFileSync("./imgSize3.js", `exports.imgSize=${JSON.stringify(A5)}`)
 			})
 		})
+		const A1 = [...new Set(wen)]
+		const A2 = [...new Set(imgs)]
+		const A3 = [...new Set(imgSize1)]
+		const A4 = [...new Set(imgSize2)]
+		const A5 = [...new Set(imgSize3)]
+		fs.writeFileSync("./wen.js", `exports.wen=${JSON.stringify(A1)}`)
+		fs.writeFileSync("./imgs.js", `exports.imgs=${JSON.stringify(A2)}`)
+		fs.writeFileSync("./imgSize1.js", `exports.imgSize=${JSON.stringify(A3)}`)
+		fs.writeFileSync("./imgSize2.js", `exports.imgSize=${JSON.stringify(A4)}`)
+		fs.writeFileSync("./imgSize3.js", `exports.imgSize=${JSON.stringify(A5)}`)
 	})
 }
 read(imgUrl, 1)
