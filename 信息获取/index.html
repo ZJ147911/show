@@ -3,16 +3,20 @@
  * Copyright (c) 2022 by 赵军/公司名, All Rights Reserved.
  * @Date         :2022-09-30 18:17:40
  * @Description  :
- * @FilePath     :\项目展示\index.html
+ * @FilePath     :\utilitiesappd:\Users\Gitee\项目展示\信息获取\index.html
  * @LastEditors  :赵军
- * @LastEditTime :2022-10-02 21:29:19
+ * @LastEditTime :2022-10-28 09:23:55
 -->
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 		<style>
 			* {
@@ -23,7 +27,9 @@
 				width: 100vw;
 				height: 100vh;
 			}
-			#data {
+			#data1,
+			#data2,
+			#data3 {
 				display: block;
 				margin: 30px auto;
 				height: 100px;
@@ -36,11 +42,14 @@
 	</head>
 	<body>
 		<div class="da">
-			<textarea id="data"></textarea>
+			<textarea id="data1"></textarea>
+			<textarea id="data2"></textarea>
+			<textarea id="data3"></textarea>
 		</div>
 	</body>
 	<script>
 		let productNo = '',
+			operatorNo = '',
 			sessionKey = '';
 		const obj = {
 			ENV_H5_CONFIG: 'prod',
@@ -62,6 +71,10 @@
 					BestpayHtml5.User.autoLogin(
 						params,
 						(val) => {
+							sessionKey = val.sessionKey;
+							if (val.value && val.value.productNo) {
+								productNo = val.value.productNo;
+							}
 							resolve(val);
 						},
 						(err) => {
@@ -72,40 +85,54 @@
 				});
 			},
 			getProductNo() {
-				if (productNo) {
-					return Promise.resolve(productNo);
-				}
 				return new Promise((resolve, reject) => {
-					BestpayHtml5.User.getProductNo(
-						{
-							noAutoLogin: true
-						},
-						(val) => {
-							resolve(val.productNo);
-						},
-						(err) => {
-							resolve('');
-						}
-					);
+					if (productNo) {
+						resolve(productNo);
+					} else {
+						BestpayHtml5.User.getProductNo(
+							{
+								noAutoLogin: true
+							},
+							(val) => {
+								productNo = val.productNo;
+								resolve(val.productNo);
+							},
+							(err) => {
+								resolve('');
+							}
+						);
+					}
+				});
+			},
+			getOperatorNo() {
+				return new Promise((resolve, reject) => {
+					if (operatorNo) {
+						resolve(operatorNo);
+					} else {
+						BestpayHtml5.User.getOperatorNo(
+							{},
+							(obj) => {
+								operatorNo = obj.operatorNo;
+								resolve(obj.operatorNo);
+							},
+							(obj) => {
+								console.warn(`获取operatorNo失败:${JSON.stringify(obj)}`);
+								reject('');
+							}
+						);
+					}
 				});
 			}
 		};
 		function setSaConfig(res) {
 			obj.autoLogin().then((val) => {
-				sessionKey = val.sessionKey;
-				if (val.value && val.value.productNo) {
-					productNo = val.value.productNo;
-				} else {
-					obj.getProductNo().then((value) => {
-						if (value) {
-							productNo = value;
-							document.getElementById('data').innerText = `${sessionKey}`;
-							console.log(
-								 `${sessionKey}`
-							);
-						}
-					});
-				}
+				console.log('🚀 ~ file: index.html ~ line 129 ~ obj.autoLogin ~ val', val)
+				Promise.all([obj.getProductNo(), obj.getOperatorNo()]).then((res) => {
+					console.log('🚀 ~ file: index.html ~ line 131 ~ Promise.all ~ res', res)
+					document.getElementById('data1').innerText = `${productNo}`;
+					document.getElementById('data2').innerText = `${sessionKey}`;
+					document.getElementById('data3').innerText = `${operatorNo}`;
+				});
 			});
 		}
 		if (!window.BestpayHtml5) {
