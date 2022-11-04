@@ -3,9 +3,9 @@
  * Copyright (c) 2022 by 赵军/公司名, All Rights Reserved.
  * @Date         :2022-09-30 18:17:40
  * @Description  :
- * @FilePath     :\utilitiesappd:\Users\Gitee\项目展示\信息获取\index.html
+ * @FilePath     :\项目展示\信息获取\index.html
  * @LastEditors  :赵军
- * @LastEditTime :2022-10-28 09:23:55
+ * @LastEditTime :2022-11-04 09:58:17
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -26,17 +26,32 @@
 			.da {
 				width: 100vw;
 				height: 100vh;
+				padding: 20px 0;
 			}
 			#data1,
 			#data2,
-			#data3 {
+			#data3,
+			#data4 {
+				width: 90%;
 				display: block;
-				margin: 30px auto;
-				height: 100px;
+				margin: 10px auto;
 				font-size: 16px;
 				padding: 5px;
 				text-align: left;
 				line-height: 20px;
+			}
+
+			#data1 {
+				height: 30px;
+			}
+			#data2 {
+				height: 30px;
+			}
+			#data3 {
+				height: 30px;
+			}
+			#data4 {
+				height: 200px;
 			}
 		</style>
 	</head>
@@ -45,11 +60,13 @@
 			<textarea id="data1"></textarea>
 			<textarea id="data2"></textarea>
 			<textarea id="data3"></textarea>
+			<textarea id="data4"></textarea>
 		</div>
 	</body>
 	<script>
 		let productNo = '',
 			operatorNo = '',
+			appVersionInfo = '',
 			sessionKey = '';
 		const obj = {
 			ENV_H5_CONFIG: 'prod',
@@ -104,6 +121,26 @@
 					}
 				});
 			},
+			getSessionKey() {
+				return new Promise((resolve, reject) => {
+					if (sessionKey) {
+						resolve(sessionKey);
+					} else {
+						BestpayHtml5.User.getSessionKey(
+							{
+								noAutoLogin: true
+							},
+							(val) => {
+								sessionKey = val.sessionKey;
+								resolve(val.sessionKey);
+							},
+							() => {
+								resolve('');
+							}
+						);
+					}
+				});
+			},
 			getOperatorNo() {
 				return new Promise((resolve, reject) => {
 					if (operatorNo) {
@@ -122,16 +159,38 @@
 						);
 					}
 				});
+			},
+			getAppInfo(params = {}) {
+				return new Promise((resolve, reject) => {
+					BestpayHtml5.APP.getAppInfo(
+						params,
+						(obj) => {
+							if (obj.appVersion) {
+								appVersionInfo = JSON.stringify(obj);
+								resolve(obj);
+							} else {
+								reject({});
+							}
+						},
+						() => {
+							reject({});
+						},
+						() => {
+							reject({});
+						}
+					);
+				});
 			}
 		};
 		function setSaConfig(res) {
 			obj.autoLogin().then((val) => {
-				console.log('🚀 ~ file: index.html ~ line 129 ~ obj.autoLogin ~ val', val)
-				Promise.all([obj.getProductNo(), obj.getOperatorNo()]).then((res) => {
-					console.log('🚀 ~ file: index.html ~ line 131 ~ Promise.all ~ res', res)
+				console.log('🚀 ~ file: index.html ~ line 129 ~ obj.autoLogin ~ val', val);
+				Promise.all([obj.getProductNo(), obj.getSessionKey(), obj.getOperatorNo(), obj.getAppInfo()]).then((res) => {
+					console.log('🚀 ~ file: index.html ~ line 131 ~ Promise.all ~ res', res);
 					document.getElementById('data1').innerText = `${productNo}`;
 					document.getElementById('data2').innerText = `${sessionKey}`;
 					document.getElementById('data3').innerText = `${operatorNo}`;
+					document.getElementById('data4').innerText = `${appVersionInfo}`;
 				});
 			});
 		}
