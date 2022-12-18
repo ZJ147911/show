@@ -1,0 +1,65 @@
+<!--
+ * @Author       :赵军
+ * Copyright (c) 2022 by 赵军/公司名, All Rights Reserved.
+ * @Date         :2022-12-15 12:59:32
+ * @Description  :
+ * @FilePath     :\webSocket\static\index.html
+ * @LastEditors  :赵军
+ * @LastEditTime :2022-12-15 16:26:53
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="./mgssdk1-1-4.min.js"></script>
+  <script src="./config.js"></script>
+  <script src="./jsb.js"></script>
+  <script>
+    const socket = io()
+
+    socket.on('mgs-req', function (params, options) {
+      console.log(params, options)
+      request(params, options)
+        .then(res => {
+          res.callbackId = options.callbackId
+          // console.log('mgs-req', res)
+          socket.emit('mgs-res', res)
+        })
+        .catch(err => {
+          err.callbackId = options.callbackId
+          // console.log('mgs-req', err)
+          socket.emit('mgs-res', err)
+        })
+    })
+
+    socket.on('jsb-req', function (params, options) {
+      console.log(params, options)
+      jsbCall(params, options)
+        .then(res => {
+          res.callbackId = options.callbackId
+          // console.log('mgs-req', res)
+          socket.emit('jsb-res', res)
+        })
+        .catch(err => {
+          err.callbackId = options.callbackId
+          // console.log('mgs-req', err)
+          socket.emit('jsb-res', err)
+        })
+    });
+  </script>
+</body>
+    <script src="./vconsole.min.js"></script>
+    <script>
+      // VConsole will be exported to `window.VConsole` by default.
+      var vConsole = new window.VConsole();
+    </script>
+
+</html>
