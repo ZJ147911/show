@@ -1,2 +1,2 @@
-start cmd /k  "http-server"
+start cmd /k  "live-server"
 

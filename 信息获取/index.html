@@ -3,9 +3,9 @@
  * Copyright (c) 2022 by 赵军/公司名, All Rights Reserved.
  * @Date         :2022-09-30 18:17:40
  * @Description  :
- * @FilePath     :\项目展示\信息获取\index.html
+ * @FilePath     :\信息获取\index.html
  * @LastEditors  :赵军
- * @LastEditTime :2022-11-04 09:58:17
+ * @LastEditTime :2022-12-13 19:42:47
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -31,6 +31,7 @@
 			#data1,
 			#data2,
 			#data3,
+			#data5,
 			#data4 {
 				width: 90%;
 				display: block;
@@ -50,6 +51,9 @@
 			#data3 {
 				height: 30px;
 			}
+			#data5 {
+				height: 30px;
+			}
 			#data4 {
 				height: 200px;
 			}
@@ -61,18 +65,21 @@
 			<textarea id="data2"></textarea>
 			<textarea id="data3"></textarea>
 			<textarea id="data4"></textarea>
+			<textarea id="data5"></textarea>
 		</div>
 	</body>
-	<script>
+<script>
 		let productNo = '',
 			operatorNo = '',
+			ipTId = '',
 			appVersionInfo = '',
 			sessionKey = '';
 		const obj = {
-			ENV_H5_CONFIG: 'prod',
-			test: 'https://h5.test.bestpay.net',
-			pre: 'https://h5-pre.bestpay.com.cn',
-			prod: 'https://h5.bestpay.cn',
+			ENV_H5_CONFIG: 'test',
+			test: 'https://h5.test.bestpay.net/common/js/bestpay-html5-3.0.js',
+			pre: 'https://h5-pre.bestpay.com.cn/common/js/bestpay-html5-3.0.js',
+			prod: 'https://h5.bestpay.cn/common/js/bestpay-html5-3.0.js',
+			prodBen: './bestpay-html5-3.0.js',
 
 			addScript(url, callback) {
 				const scriptDom = document.createElement('script');
@@ -141,8 +148,9 @@
 					}
 				});
 			},
+
 			getOperatorNo() {
-				return new Promise((resolve, reject) => {
+				return new Promise((resolve) => {
 					if (operatorNo) {
 						resolve(operatorNo);
 					} else {
@@ -154,14 +162,14 @@
 							},
 							(obj) => {
 								console.warn(`获取operatorNo失败:${JSON.stringify(obj)}`);
-								reject('');
+								resolve('');
 							}
 						);
 					}
 				});
 			},
 			getAppInfo(params = {}) {
-				return new Promise((resolve, reject) => {
+				return new Promise((resolve) => {
 					BestpayHtml5.APP.getAppInfo(
 						params,
 						(obj) => {
@@ -169,14 +177,31 @@
 								appVersionInfo = JSON.stringify(obj);
 								resolve(obj);
 							} else {
-								reject({});
+								resolve({});
 							}
 						},
 						() => {
-							reject({});
+							resolve({});
 						},
 						() => {
-							reject({});
+							resolve({});
+						}
+					);
+				});
+			},
+			getIpTId(params = {}) {
+				return new Promise((resolve) => {
+					BestpayHtml5.User.getIpTId(
+						params,
+						(obj) => {
+							ipTId=obj.ipTId;
+								resolve(obj.ipTId);
+						},
+						(err) => {
+							resolve({});
+						},
+						(err) => {
+							resolve({});
 						}
 					);
 				});
@@ -185,17 +210,24 @@
 		function setSaConfig(res) {
 			obj.autoLogin().then((val) => {
 				console.log('🚀 ~ file: index.html ~ line 129 ~ obj.autoLogin ~ val', val);
-				Promise.all([obj.getProductNo(), obj.getSessionKey(), obj.getOperatorNo(), obj.getAppInfo()]).then((res) => {
-					console.log('🚀 ~ file: index.html ~ line 131 ~ Promise.all ~ res', res);
+				Promise.all([obj.getProductNo(), obj.getSessionKey(), obj.getOperatorNo(), obj.getAppInfo(), obj.getIpTId()]).then((res) => {
+					console.log('🚀 ~ file: index.html ~ line 131 ~ Promise.all ~ res', {
+						productNo:res[0],
+						sessionKey:res[1],
+						operatorNo:res[2],
+						appVersionInfo:res[3],
+						ipTId:res[4]
+					});
 					document.getElementById('data1').innerText = `${productNo}`;
 					document.getElementById('data2').innerText = `${sessionKey}`;
 					document.getElementById('data3').innerText = `${operatorNo}`;
 					document.getElementById('data4').innerText = `${appVersionInfo}`;
+					document.getElementById('data5').innerText = `${ipTId}`;
 				});
 			});
 		}
 		if (!window.BestpayHtml5) {
-			obj.addScript(`${obj[obj.ENV_H5_CONFIG]}/common/js/bestpay-html5-3.0.js`, () => {
+			obj.addScript(obj[obj.ENV_H5_CONFIG], () => {
 				window.BestpayHtml5 && BestpayHtml5.config('0', false, '45', '4500', true);
 				setSaConfig();
 			});
