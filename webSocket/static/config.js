@@ -57,6 +57,7 @@ const mgsCallH5 = (params, options = {}) => {
       operationType,
       data: requestData,
     }, function (response) {
+      console.log("🚀 ~ file: config.js:60 ~ returnnewPromise ~ response", response);
       const { status, data } = response
       if (status >= 200 && status < 300) {
         let ret = data
@@ -100,7 +101,7 @@ const mgsCallNa = (params, options = {}) => {
         requestData: requestData,
         headers:{}
       }, function (result) {
-        console.log(result);
+        console.log("🚀 ~ file: config.js:103 ~ onBridgeReady ~ result", result);
         if (result && result.error) {
           reject(result)
         } else {

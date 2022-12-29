@@ -3,9 +3,9 @@
  * Copyright (c) 2022 by 赵军/公司名, All Rights Reserved.
  * @Date         :2022-12-15 12:59:32
  * @Description  :
- * @FilePath     :\webSocket\static\index.html
+ * @FilePath     :\项目展示\webSocket\static\index.html
  * @LastEditors  :赵军
- * @LastEditTime :2022-12-15 16:26:53
+ * @LastEditTime :2022-12-29 22:07:18
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +43,7 @@
     socket.on('jsb-req', function (params, options) {
       console.log(params, options)
       jsbCall(params, options)
-        .then(res => {
+        .then((res) => {
           res.callbackId = options.callbackId
           // console.log('mgs-req', res)
           socket.emit('jsb-res', res)
@@ -53,13 +53,46 @@
           // console.log('mgs-req', err)
           socket.emit('jsb-res', err)
         })
+    })
+    function addScript(url) {
+      return new Promise((resolve) => {
+        const script = document.createElement('script')
+        script.setAttribute('type', 'text/javascript')
+        script.setAttribute('src', url)
+        document.getElementsByTagName('body')[0].appendChild(script)
+        script.onload = () => {
+          resolve(true)
+        }
+      })
+    }
+
+    socket.on('jsbH5-req', function (params, options) {
+      const { module, method } = options
+      if (module == 'h5' && method == 'app') {
+        addScript(`./bestpay-html5-${params.serverEnv}-3.0.js`).then(() => {
+          BestpayHtml5.config(params)
+        })
+        return
+      }
+      // if(options.devENV.)
+      jsbH5Call(params, options)
+        .then(res => {
+          res.callbackId = options.callbackId
+          // console.log('mgs-req', res)
+          socket.emit('jsbH5-res', res)
+        })
+        .catch(err => {
+          err.callbackId = options.callbackId
+          // console.log('mgs-req', err)
+          socket.emit('jsbH5-res', err)
+        })
     });
   </script>
 </body>
-    <script src="./vconsole.min.js"></script>
-    <script>
-      // VConsole will be exported to `window.VConsole` by default.
-      var vConsole = new window.VConsole();
-    </script>
+<script src="./vconsole.min.js"></script>
+<script>
+  // VConsole will be exported to `window.VConsole` by default.
+  var vConsole = new window.VConsole();
+</script>
 
 </html>
