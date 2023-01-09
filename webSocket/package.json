@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "测试webSockSet",
   "main": "index.js",
-  "bin":"index.js",
+  "bin": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "pkg":"pkg -t win index.js"
+    "pkg": "pkg -t win index.js"
   },
   "author": "zj",
   "license": "ISC",
