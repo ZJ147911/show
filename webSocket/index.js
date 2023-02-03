@@ -5,7 +5,7 @@
  * @Description  :
  * @FilePath     :\项目展示\webSocket\index.js
  * @LastEditors  :赵军
- * @LastEditTime :2023-01-09 12:37:22
+ * @LastEditTime :2023-02-03 15:15:54
  */
 const express = require('express')
 const app = express()
@@ -14,6 +14,8 @@ const http = require('http')
 const server = http.createServer(app)
 const { Server } = require("socket.io")
 const io = new Server(server)
+
+const mgsApis = require('./routes/mgsApis');
 
 const os = require('os')
 function getNetworkIp() {
@@ -51,6 +53,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/static/index.html'))
 })
 
+app.use('/mgsApis', mgsApis);
 let cbStore = {} // callbackStore
 var callbackIndex = 0
 
@@ -69,7 +72,7 @@ app.post('/mgs/*', async (req, res, next) => {
   const { params, options } = req.body
 
   const result = await mgsRequest(params, options)
-  console.log(result)
+  // console.log(result)
   res.header('Access-Control-Allow-Origin', '*')
   res.json(result)
 })
@@ -90,7 +93,7 @@ app.post('/jsb/*', async (req, res, next) => {
   const { params, options } = req.body
 
   const result = await jsbRequest(params, options)
-  console.log(result)
+  // console.log(result)
   res.json(result)
 })
 function jsbH5Request(params, options) {
@@ -109,7 +112,7 @@ app.post('/jsbH5/*', async (req, res, next) => {
   const { params, options } = req.body
 
   const result = await jsbH5Request(params, options)
-  console.log(result)
+  // console.log(result)
   res.json(result)
 })
 
