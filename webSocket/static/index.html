@@ -5,7 +5,7 @@
  * @Description  :
  * @FilePath     :\项目展示\webSocket\static\index.html
  * @LastEditors  :赵军
- * @LastEditTime :2022-12-29 22:07:18
+ * @LastEditTime :2023-02-12 22:32:54
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -68,8 +68,13 @@
 
     socket.on('jsbH5-req', function (params, options) {
       const { module, method } = options
+      const bestpayJs={
+        test:'https://h5.test.bestpay.net',
+        pre:'https://h5-pre.bestpay.com.cn',
+        prod:'https://h5.bestpay.cn'
+      }
       if (module == 'h5' && method == 'app') {
-        addScript(`./bestpay-html5-${params.serverEnv}-3.0.js`).then(() => {
+        addScript(`${bestpayJs[params.serverEnv]}/common/js/bestpay-html5-3.0.js`).then(() => {
           BestpayHtml5.config(params)
         })
         return
