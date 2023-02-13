@@ -3,7 +3,6 @@ const router = express.Router()
 const shell = require('shelljs')
 const path = require('path')
 const fs = require('fs')
-const objConfig = require('./config')
 
 const execGo = (command, options) => {
   const { code, stdout, stderr } = shell.exec(command, { silent: true, ...options })
@@ -15,9 +14,13 @@ const execGo = (command, options) => {
   }
 }
 // 新增数据
-router.post("/", function (request,response) {
+router.post("/", function (request, response) {
   const { action, userInfo, config, req, res } = request.body
   console.log("🚀 ~ file: mgsApis.js:32 ~ request.body", request.body)
+  const objConfig = {
+    2022001200010001: 'D:\\Users\\Tian\\utilitiesapp3.0',
+    2022001200010002: 'D:\\Users\\Tian\\payassistantMPaaS',
+  }
   // action     STRING API名
   // 枚举值 {
   // "getAppListByApi", // 拉取小程序列表
@@ -29,17 +32,19 @@ router.post("/", function (request,response) {
   // config // OBJECT 对应的配置文件
   // req // OBJECT 此API执行时的入参
   // res // OBJECT 此API执行后返回的结果
-  if (action === 'uploadPackageByApi' && config.name == objConfig[req.appInfo.h5Id].envConfig) {
-
-    execGo(`git tag v${req.h5Version}`, { cwd: path.join(objConfig[req.appInfo.h5Id].project) })
-    execGo(`git push origin v${req.h5Version}`, { cwd: path.join(objConfig[req.appInfo.h5Id].project) })
-
+  if (action === 'uploadPackageByApi') {
+    if (objConfig[req.appInfo.h5Id]) {
+      execGo(`git tag v${req.h5Version}`, { cwd: path.join(objConfig[req.appInfo.h5Id]) })
+      execGo(`git push origin v${req.h5Version}`, { cwd: path.join(objConfig[req.appInfo.h5Id]) })
+    } else {
+      execGo(`git tag ${req.appInfo.h5Id}-${req.h5Version}`, { cwd: path.join(objConfig[req.appInfo.h5Id]) })
+    }
   }
 
 
   response.send({
-  	message: "插入成功！",
-  	success: 200,
+    message: "插入成功！",
+    success: 200,
   })
 })
 
