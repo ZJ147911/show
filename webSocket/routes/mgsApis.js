@@ -21,6 +21,10 @@ router.post("/", function (request, response) {
     2022001200010001: 'D:\\Users\\Tian\\utilitiesapp3.0',
     2022001200010002: 'D:\\Users\\Tian\\payassistantMPaaS',
   }
+  const user ={
+    prod:'lujiarui@bestpay.com.cn',
+    dev:'tongchangsheng@bestpay.com.cn'
+  }
   // action     STRING API名
   // 枚举值 {
   // "getAppListByApi", // 拉取小程序列表
@@ -33,11 +37,11 @@ router.post("/", function (request, response) {
   // req // OBJECT 此API执行时的入参
   // res // OBJECT 此API执行后返回的结果
   if (action === 'uploadPackageByApi') {
-    if (objConfig[req.appInfo.h5Id]) {
+    if (objConfig[req.appInfo.h5Id]&&userInfo.loginName==user.prod) {
       execGo(`git tag v${req.h5Version}`, { cwd: path.join(objConfig[req.appInfo.h5Id]) })
       execGo(`git push origin v${req.h5Version}`, { cwd: path.join(objConfig[req.appInfo.h5Id]) })
     } else {
-      execGo(`git tag ${req.appInfo.h5Id}-${req.h5Version}`, { cwd: path.join(objConfig[req.appInfo.h5Id]) })
+      execGo(`git tag dev${req.h5Version}`, { cwd: path.join(objConfig[req.appInfo.h5Id]) })
     }
   }
 
