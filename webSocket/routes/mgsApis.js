@@ -13,6 +13,20 @@ const execGo = (command, options) => {
     shell.exit
   }
 }
+
+const changeConfig = (filePath, isProd) => {
+  const objPath = path.join(filePath, './mini.project.json')
+  const project = fs.readFileSync(objPath, {
+    encoding: 'utf-8'
+  })
+  let obj
+  if (isProd) {
+    obj = project.replace(/test/g, 'prod')
+  } else {
+    obj = project.replace(/prod/g, 'test')
+  }
+  fs.writeFileSync(objPath, obj)
+}
 // 新增数据
 router.post("/", function (request, response) {
   const { action, userInfo, config, req, res } = request.body
@@ -21,9 +35,9 @@ router.post("/", function (request, response) {
     2022001200010001: 'D:\\Users\\Tian\\utilitiesapp3.0',
     2022001200010002: 'D:\\Users\\Tian\\payassistantMPaaS',
   }
-  const user ={
-    prod:'lujiarui@bestpay.com.cn',
-    dev:'tongchangsheng@bestpay.com.cn'
+  const user = {
+    prod: 'lujiarui@bestpay.com.cn',
+    dev: 'tongchangsheng@bestpay.com.cn'
   }
   // action     STRING API名
   // 枚举值 {
@@ -37,11 +51,18 @@ router.post("/", function (request, response) {
   // req // OBJECT 此API执行时的入参
   // res // OBJECT 此API执行后返回的结果
   if (action === 'uploadPackageByApi') {
-    if (objConfig[req.appInfo.h5Id]&&userInfo.loginName==user.prod) {
+    if (objConfig[req.appInfo.h5Id] && userInfo.loginName == user.prod) {
       execGo(`git tag v${req.h5Version}`, { cwd: path.join(objConfig[req.appInfo.h5Id]) })
       execGo(`git push origin v${req.h5Version}`, { cwd: path.join(objConfig[req.appInfo.h5Id]) })
     } else {
       execGo(`git tag dev${req.h5Version}`, { cwd: path.join(objConfig[req.appInfo.h5Id]) })
+    }
+  }
+  if (action === 'getPackageInfoByApi') {
+    if (userInfo.loginName == user.prod) {
+      changeConfig(objConfig[req.h5Id], true)
+    } else {
+      changeConfig(objConfig[req.h5Id], false)
     }
   }
 

@@ -5,7 +5,7 @@
  * @Description  :
  * @FilePath     :\项目展示\webSocket\static\index.html
  * @LastEditors  :赵军
- * @LastEditTime :2023-02-12 22:32:54
+ * @LastEditTime :2023-02-14 16:45:53
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +26,7 @@
     const socket = io()
 
     socket.on('mgs-req', function (params, options) {
-      console.log(params, options)
+      // console.log(params, options)
       request(params, options)
         .then(res => {
           res.callbackId = options.callbackId
@@ -41,7 +41,7 @@
     })
 
     socket.on('jsb-req', function (params, options) {
-      console.log(params, options)
+      // console.log(params, options)
       jsbCall(params, options)
         .then((res) => {
           res.callbackId = options.callbackId
