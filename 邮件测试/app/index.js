@@ -1,20 +1,19 @@
 const nodemailer = require('nodemailer')
-const {mailOption}=require('./message')
+const {userInfos,mailOption}=require('./message')
 
 const obj = {
   transporter: nodemailer.createTransport({
     host: 'smtp.qq.com', // 默认是这个
     port: 465,
-    auth: {
-      user: '1479119670@qq.com',
-      pass: 'xwuksfufrtrojhjb'
-    }
+    auth: userInfos
   }),
 
-  send: function(mail, content) {
+  send: function (mail, content) {
+    Object.keys(content)
+    console.log("🚀 ~ file: index.js:13 ~ Object.keys(content)", Object.keys(content));
     const mailOptions = {
       // 发送方的邮箱地址
-      from: '1479119670@qq.com',
+      from: userInfos.user,
       to: mail, // 对方邮箱
       // cc         : ''  //抄送 用于多人邮件
       // bcc      : ''    //密送

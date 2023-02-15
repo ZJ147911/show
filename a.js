@@ -1,262 +1,38 @@
-/**
- * @Author       :赵军
- * @Copyright (c) 2022 by 赵军/公司名, All Rights Reserved.
- * @Date         :2022-12-14 12:27:21
- * @Description  : 户号梳理
- * @FilePath     :\项目展示\a.js
- * @LastEditors  :赵军
- * @LastEditTime :2022-12-26 21:38:00
- */
-
-
-const data = [
-  {
-    "autoPaymentDay": "",
-    "billOrgCode": "1100001101002002",
-    "accountName": "*瑞萍",
-    "orderId": 0,
-    "archiveFlag": "false",
-    "cityCode": "110100",
-    "openDay": "",
-    "remark": "北京市电费",
-    "maxVoucher": "5.0",
-    "isBalanceAdequate": "false",
-    "isPrestore": "true",
-    "repairedDateEnd": "20200229060000",
-    "billsType": "0",
-    "hasNewBill": "false",
-    "noticeTime": "",
-    "effectFlag": "true",
-    "accountAddress": "北京市东********44号",
-    "billOrgName": "国网北京市电力公司",
-    "isChinaPay": "0",
-    "noticed": true,
-    "sysBillNo": "2022122152039551",
-    "isAutoPayment": "true",
-    "autoPaymentStatus": "none",
-    "monthMark": "0",
-    "barCode": "0017912873",
-    "isBalanceRemind": "false",
-    "desensitizationBarCode": "0017912873",
-    "noticeMethod": "client",
-    "repairedDateBegin": "20200229000000",
-    "autoPaymentAmt": "",
-    "businessType": "D",
-    "isComboPay": "false",
-    "isShowDetails": true,
-    "isDetails": true,
-    "preOrAfter": true,
-    "isAfterBill": true,
-    "balance": 32088,
-    "query_bill": 0,
-    "preFlg": 1
-  },
-  {
-    "autoPaymentDay": "",
-    "billOrgCode": "2100002102002002",
-    "orderId": 0,
-    "archiveFlag": "false",
-    "cityCode": "210200",
-    "openDay": "",
-    "remark": "大连市电费",
-    "maxVoucher": "5.0",
-    "isBalanceAdequate": "false",
-    "isPrestore": "false",
-    "billsType": "3",
-    "hasNewBill": "false",
-    "noticeTime": "",
-    "effectFlag": "true",
-    "billOrgName": "大连市公用事业联合收费处（水电煤）",
-    "isChinaPay": "0",
-    "noticed": true,
-    "sysBillNo": "2022121251826039",
-    "autoPaymentStatus": "none",
-    "monthMark": "0",
-    "barCode": "02403006",
-    "isBalanceRemind": "false",
-    "desensitizationBarCode": "02403006",
-    "noticeMethod": "client",
-    "autoPaymentAmt": "",
-    "businessType": "D",
-    "isShowDetails": true,
-    "isDetails": true,
-    "preOrAfter": false,
-    "isAfterBill": false,
-    "balance": 0,
-    "query_bill": 0,
-    "preFlg": 1
-  },
-  {
-    "autoPaymentDay": "",
-    "billOrgCode": "3100003101004005",
-    "accountName": "**建东",
-    "orderId": 0,
-    "archiveFlag": "false",
-    "cityCode": "310100",
-    "openDay": "",
-    "remark": "上海市燃气费",
-    "maxVoucher": "5.0",
-    "isBalanceAdequate": "false",
-    "isPrestore": "false",
-    "repairedDateEnd": "20190918220000",
-    "billsType": "3",
-    "hasNewBill": "false",
-    "noticeTime": "",
-    "effectFlag": "true",
-    "billOrgName": "上海燃气有限公司",
-    "isChinaPay": "0",
-    "noticed": true,
-    "sysBillNo": "2022122652245535",
-    "autoPaymentStatus": "none",
-    "monthMark": "0",
-    "barCode": "48224929",
-    "isBalanceRemind": "false",
-    "desensitizationBarCode": "48224929",
-    "noticeMethod": "client",
-    "repairedDateBegin": "20190918200000",
-    "autoPaymentAmt": "",
-    "businessType": "M"
-  },
-  {
-    "autoPaymentDay": "",
-    "billOrgCode": "3100003101002004",
-    "accountName": "*耀明",
-    "orderId": 1,
-    "archiveFlag": "false",
-    "cityCode": "310100",
-    "openDay": "",
-    "remark": "上海市电费",
-    "maxVoucher": "5.0",
-    "isBalanceAdequate": "false",
-    "isPrestore": "false",
-    "repairedDateEnd": "20200111060000",
-    "billsType": "0",
-    "hasNewBill": "false",
-    "noticeTime": "",
-    "effectFlag": "true",
-    "accountAddress": "申滨路1******号803室",
-    "billOrgName": "国网上海市电力公司",
-    "isChinaPay": "0",
-    "noticed": true,
-    "sysBillNo": "2022121151809941",
-    "isAutoPayment": "false",
-    "autoPaymentStatus": "none",
-    "monthMark": "0",
-    "barCode": "0062899300",
-    "isBalanceRemind": "false",
-    "desensitizationBarCode": "0062899300",
-    "noticeMethod": "client",
-    "repairedDateBegin": "20200110190000",
-    "autoPaymentAmt": "",
-    "businessType": "D"
-  },
-  {
-    "autoPaymentDay": "",
-    "billOrgCode": "1500001502002001",
-    "accountName": "万达****12号楼1单元902王珑",
-    "orderId": 2,
-    "archiveFlag": "false",
-    "cityCode": "150100",
-    "openDay": "1",
-    "remark": "呼和浩特市电费",
-    "maxVoucher": "5.0",
-    "isBalanceAdequate": "false",
-    "isPrestore": "true",
-    "repairedDateEnd": "20201107190000",
-    "billsType": "0",
-    "hasNewBill": "false",
-    "noticeTime": "",
-    "effectFlag": "true",
-    "billOrgName": "内蒙古蒙西电力",
-    "isChinaPay": "0",
-    "noticed": true,
-    "sysBillNo": "2022121151811968",
-    "isAutoPayment": "true",
-    "autoPaymentStatus": "none",
-    "monthMark": "0",
-    "barCode": "011512177719",
-    "isBalanceRemind": "true",
-    "desensitizationBarCode": "011512177719",
-    "noticeMethod": "client",
-    "repairedDateBegin": "20201106190000",
-    "autoPaymentAmt": "",
-    "businessType": "D",
-    "isComboPay": "false"
-  },
-  {
-    "autoPaymentDay": "",
-    "billOrgCode": "4300004301001002",
-    "accountName": "*干筠",
-    "orderId": 3,
-    "archiveFlag": "false",
-    "cityCode": "430100",
-    "openDay": "1",
-    "remark": "长沙市水费",
-    "maxVoucher": "5.0",
-    "isBalanceAdequate": "false",
-    "isPrestore": "true",
-    "billsType": "0",
-    "hasNewBill": "false",
-    "noticeTime": "",
-    "effectFlag": "true",
-    "accountAddress": "开福区德雅*******15",
-    "billOrgName": "长沙供水有限公司",
-    "isChinaPay": "0",
-    "noticed": true,
-    "sysBillNo": "2022121151812222",
-    "isAutoPayment": "true",
-    "autoPaymentStatus": "none",
-    "monthMark": "0",
-    "barCode": "000081912",
-    "isBalanceRemind": "true",
-    "desensitizationBarCode": "000081912",
-    "noticeMethod": "client",
-    "autoPaymentAmt": "",
-    "businessType": "S",
-    "isComboPay": "false"
-  },
-  {
-    "autoPaymentDay": "",
-    "billOrgCode": "2100002112002002",
-    "accountName": "绿景1****4二左",
-    "orderId": 4,
-    "archiveFlag": "false",
-    "cityCode": "211200",
-    "openDay": "15",
-    "remark": "铁岭市电费",
-    "maxVoucher": "5.0",
-    "isBalanceAdequate": "false",
-    "isPrestore": "true",
-    "repairedDateEnd": "20200401120000",
-    "billsType": "0",
-    "hasNewBill": "false",
-    "noticeTime": "",
-    "effectFlag": "true",
-    "accountAddress": "调兵山市调兵山街道晨光社区绿景******4-203",
-    "billOrgName": "国网辽宁省铁岭市电力公司",
-    "isChinaPay": "0",
-    "noticed": true,
-    "sysBillNo": "2022121151811000",
-    "isAutoPayment": "true",
-    "autoPaymentStatus": "none",
-    "monthMark": "0",
-    "barCode": "0092982042",
-    "isBalanceRemind": "true",
-    "desensitizationBarCode": "0092982042",
-    "noticeMethod": "client",
-    "repairedDateBegin": "20200331000000",
-    "autoPaymentAmt": "",
-    "businessType": "D",
-    "isComboPay": "false"
-  }
-]
-let mData = []
-data.forEach((item) => {
-    mData.push({
-        desensitizationBarCode: item.desensitizationBarCode,
-        barCode: item.barCode,
-        accountName: item.accountName,
-        accountAddress: item.accountAddress
+const os = require('os')
+function getNetworkIp() {
+  let needHost = []// 打开的host
+  try {
+    // 获得网络接口列表
+    let network = os.networkInterfaces()
+    console.log("🚀 ~ file: a.js:17 ~ getNetworkIp ~ network", network)
+    Object.keys(network).forEach((item) => {
+      network[item].forEach((it) => {
+        if (it.family === 'IPv4' && it.address !== '127.0.0.1' && !it.internal) {
+          needHost.push({
+            name: item,
+            address: it.address
+          })
+        }
+      })
     })
-})
-console.table(mData)
+  } catch (e) {
+    needHost.push({
+      name: 'localhost',
+      address: 'localhost'
+    })
+  }
+  return needHost
+}
+const ip = getNetworkIp()
+console.log("🚀 ~ file: a.js:36 ~ ip", ip)
+
+
+let b = {
+  teleCode: "398",
+  mobileHCode: "1572903",
+  phoneNo: "15729039465",
+  provTelecode: "371"
+}
+let a = {
+  "areaCode": "0398",
+}
