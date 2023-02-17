@@ -37,7 +37,7 @@ router.post("/", function (request, response) {
   }
   const user = {
     prod: 'lujiarui@bestpay.com.cn',
-    dev: 'tongchangsheng@bestpay.com.cn'
+    dev: 'tongchangsheng@bestpay.com.cn&zhaojun-szgx@bestpay.com.cn'
   }
   // action     STRING API名
   // 枚举值 {
@@ -51,15 +51,15 @@ router.post("/", function (request, response) {
   // req // OBJECT 此API执行时的入参
   // res // OBJECT 此API执行后返回的结果
   if (action === 'uploadPackageByApi') {
-    if (objConfig[req.appInfo.h5Id] && userInfo.loginName == user.prod) {
+    if (objConfig[req.appInfo.h5Id]) {
       execGo(`git tag v${req.h5Version}`, { cwd: path.join(objConfig[req.appInfo.h5Id]) })
-      execGo(`git push origin v${req.h5Version}`, { cwd: path.join(objConfig[req.appInfo.h5Id]) })
-    } else {
-      execGo(`git tag dev${req.h5Version}`, { cwd: path.join(objConfig[req.appInfo.h5Id]) })
+      if (user.prod.includes(userInfo.loginName)) {
+        execGo(`git push origin v${req.h5Version}`, { cwd: path.join(objConfig[req.appInfo.h5Id]) })
+      }
     }
   }
   if (action === 'getPackageInfoByApi') {
-    if (userInfo.loginName == user.prod) {
+    if (user.prod.includes(userInfo.loginName)) {
       changeConfig(objConfig[req.h5Id], true)
     } else {
       changeConfig(objConfig[req.h5Id], false)

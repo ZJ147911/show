@@ -5,7 +5,7 @@
  * @Description  :
  * @FilePath     :\项目展示\webSocket\index.js
  * @LastEditors  :赵军
- * @LastEditTime :2023-02-03 15:15:54
+ * @LastEditTime :2023-02-16 15:08:43
  */
 const express = require('express')
 const app = express()
@@ -49,11 +49,15 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 
 app.use(express.static(path.join(__dirname, '/static')))
 
+app.post('/', (req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*")
+  next()
+});
+app.use('/mgsApis', mgsApis);
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/static/index.html'))
 })
 
-app.use('/mgsApis', mgsApis);
 let cbStore = {} // callbackStore
 var callbackIndex = 0
 
@@ -73,7 +77,6 @@ app.post('/mgs/*', async (req, res, next) => {
 
   const result = await mgsRequest(params, options)
   // console.log(result)
-  res.header('Access-Control-Allow-Origin', '*')
   res.json(result)
 })
 

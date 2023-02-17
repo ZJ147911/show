@@ -39,7 +39,7 @@ let config = h5ConfigTest
 
 const mgsCallH5 = (params, options = {}) => {
   // console.log('mgsCallH5')
-  const { method = 'post', operationType } = options
+  const { method = 'post', operationType, header = {} } = options
   if (!operationType) {
     console.warn('operationType undefined')
     return
@@ -56,8 +56,9 @@ const mgsCallH5 = (params, options = {}) => {
       method,
       operationType,
       data: requestData,
+      headers: header,
     }, function (response) {
-      console.log("🚀 ~ file: config.js:60 ~ returnnewPromise ~ response", response);
+      console.log("🚀 ~ file: config.js:60 ~ returnnewPromise ~ response", response)
       const { status, data } = response
       if (status >= 200 && status < 300) {
         let ret = data
@@ -84,7 +85,7 @@ function onBridgeReady(callback) {
 
 const mgsCallNa = (params, options = {}) => {
   // console.log('mgsCallNa')
-  const { method = 'post', operationType } = options
+  const { method = 'post', operationType, header = {} } = options
   if (!operationType) {
     console.warn('operationType undefined')
     return
@@ -98,16 +99,16 @@ const mgsCallNa = (params, options = {}) => {
       AlipayJSBridge.call('rpc', {
         operationType: operationType,
         requestData: requestData,
-        headers: {},
+        headers: header,
         getResponse: true
       },
         function (result) {
-          console.log("🚀 ~ file: config.js:107 ~ onBridgeReady ~ result", result);
+          console.log("🚀 ~ file: config.js:107 ~ onBridgeReady ~ result", result)
           if (result.resData && result.resData.success) {
-            console.log('111111');
+            console.log('111111')
             resolve(result)
           } else {
-            console.log('222222');
+            console.log('222222')
             reject(result)
           }
         })
