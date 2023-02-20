@@ -27,18 +27,32 @@ const changeConfig = (filePath, isProd) => {
   }
   fs.writeFileSync(objPath, obj)
 }
+let ide = {}
+const ideConfig = (val) => {
+    console.log("🚀 ~ file: mgsApis.js:33 ~ ideConfig ~ val.action", val.action)
+  if (!ide[val.action]) {
+    const objPath = path.join(process.cwd(), '../ide.js')
+    // const project = fs.readFileSync(objPath, {
+    //   encoding: 'utf-8'
+    // })
+    ide[val.action] = val
+    fs.writeFileSync(objPath, JSON.stringify(ide))
+  }
+}
+const objConfig = {
+  2022001200010001: 'D:\\Users\\Tian\\utilitiesapp3.0',
+  2022001200010002: 'D:\\Users\\Tian\\payassistantMPaaS',
+}
+const user = {
+  prod: 'lujiarui@bestpay.com.cn',
+  dev: 'tongchangsheng@bestpay.com.cn&zhaojun-szgx@bestpay.com.cn'
+}
+
 // 新增数据
 router.post("/", function (request, response) {
   const { action, userInfo, config, req, res } = request.body
-  console.log("🚀 ~ file: mgsApis.js:32 ~ request.body", request.body)
-  const objConfig = {
-    2022001200010001: 'D:\\Users\\Tian\\utilitiesapp3.0',
-    2022001200010002: 'D:\\Users\\Tian\\payassistantMPaaS',
-  }
-  const user = {
-    prod: 'lujiarui@bestpay.com.cn',
-    dev: 'tongchangsheng@bestpay.com.cn&zhaojun-szgx@bestpay.com.cn'
-  }
+  // ideConfig(request.body)
+  // console.log("🚀 ~ file: mgsApis.js:32 ~ request.body", request.body)
   // action     STRING API名
   // 枚举值 {
   // "getAppListByApi", // 拉取小程序列表
@@ -58,13 +72,13 @@ router.post("/", function (request, response) {
       }
     }
   }
-  if (action === 'getPackageInfoByApi') {
-    if (user.prod.includes(userInfo.loginName)) {
-      changeConfig(objConfig[req.h5Id], true)
-    } else {
-      changeConfig(objConfig[req.h5Id], false)
-    }
-  }
+  // if (action === 'getPackageInfoByApi') {
+  //   if (user.prod.includes(userInfo.loginName)) {
+  //     changeConfig(objConfig[req.h5Id], true)
+  //   } else {
+  //     changeConfig(objConfig[req.h5Id], false)
+  //   }
+  // }
 
 
   response.send({

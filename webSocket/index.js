@@ -5,7 +5,7 @@
  * @Description  :
  * @FilePath     :\项目展示\webSocket\index.js
  * @LastEditors  :赵军
- * @LastEditTime :2023-02-16 15:08:43
+ * @LastEditTime :2023-02-20 14:25:42
  */
 const express = require('express')
 const app = express()
@@ -78,6 +78,19 @@ app.post('/mgs/*', async (req, res, next) => {
   const result = await mgsRequest(params, options)
   // console.log(result)
   res.json(result)
+})
+app.post('/ide/*', async (req, res, next) => {
+  // console.log(req.body);
+  // const { params, options } = req.body
+  console.log("🚀 ~ file: index.js:85 ~ app.post ~ req.body", req.body);
+
+  // const result = await mgsRequest(params, options)
+  // console.log(result)
+  // res.json(result)
+  res.json({
+    message: "插入成功！",
+    success: 200,
+  })
 })
 
 function jsbRequest(params, options) {
