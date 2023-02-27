@@ -5,7 +5,7 @@
  * @Description  :
  * @FilePath     :\项目展示\webSocket\index.js
  * @LastEditors  :赵军
- * @LastEditTime :2023-02-20 14:25:42
+ * @LastEditTime :2023-02-27 22:50:01
  */
 const express = require('express')
 const app = express()
@@ -15,7 +15,7 @@ const server = http.createServer(app)
 const { Server } = require("socket.io")
 const io = new Server(server)
 
-const mgsApis = require('./routes/mgsApis');
+const mgsApis = require('./routes/mgsApis')
 
 const os = require('os')
 function getNetworkIp() {
@@ -34,10 +34,10 @@ function getNetworkIp() {
       })
     })
   } catch (e) {
-     needHost.push({
-            name: 'localhost',
-            address: 'localhost'
-          })
+    needHost.push({
+      name: 'localhost',
+      address: 'localhost'
+    })
   }
   return needHost
 }
@@ -52,8 +52,8 @@ app.use(express.static(path.join(__dirname, '/static')))
 app.post('/', (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*")
   next()
-});
-app.use('/mgsApis', mgsApis);
+})
+app.use('/mgsApis', mgsApis)
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/static/index.html'))
 })
@@ -71,12 +71,15 @@ function mgsRequest(params, options) {
     }
   })
 }
+const { resultAdd } = require('./files.js')
 app.post('/mgs/*', async (req, res, next) => {
   // console.log(req.body);
   const { params, options } = req.body
 
   const result = await mgsRequest(params, options)
+  console.log("🚀 ~ file: index.js:80 ~ app.post ~ result:", result);
   // console.log(result)
+  resultAdd(options, result.resData||result)
   res.json(result)
 })
 app.post('/ide/*', async (req, res, next) => {
@@ -161,9 +164,9 @@ io.on('connection', (socket) => {
 })
 
 server.listen(3000, () => {
-  console.log('listening on');
+  console.log('listening on')
   ip.forEach((item) => {
-  console.log(`${item.name} : http://${item.address}:3000`)
+    console.log(`${item.name} : http://${item.address}:3000`)
 
   })
 })

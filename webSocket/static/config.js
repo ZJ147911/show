@@ -57,21 +57,19 @@ const mgsCallH5 = (params, options = {}) => {
       operationType,
       data: requestData,
       headers: header,
-    }, function (response) {
-      console.log("🚀 ~ file: config.js:60 ~ returnnewPromise ~ response", response)
-      const { status, data } = response
-      if (status >= 200 && status < 300) {
-        let ret = data
-        if (typeof data === 'string') {
-          try {
-            ret = JSON.parse(data)
-          } catch (e) { }
-        }
-        console.log(status, ret)
-        return resolve(ret)
-      }
-      reject(response)
-    })
+      getResponse: true
+    },
+      function (result) {
+        console.log('🚀 ~ file: miniapp.js:47 ~ onBridgeReady ~ api, requestData, result', api,options, requestData, result)
+          resolve(result)
+        // const { header, resData } = result
+        // header && console.log('mgw-traceid', header['mgw-traceid'], 'result-status', header['result-status'])
+        // if ((resData && resData.success)|| resData.errorMsg || resData.errorCode) {
+        //   resolve(result)
+        // } else {
+        //   reject(result)
+        // }
+      })
   })
 }
 
@@ -103,14 +101,15 @@ const mgsCallNa = (params, options = {}) => {
         getResponse: true
       },
         function (result) {
-          console.log("🚀 ~ file: config.js:107 ~ onBridgeReady ~ result", result)
-          if (result.resData && result.resData.success) {
-            console.log('111111')
+          console.log("🚀 ~ file: config.js:107 ~ onBridgeReady ~ result",options, result)
             resolve(result)
-          } else {
-            console.log('222222')
-            reject(result)
-          }
+          // if (result.resData && result.resData.success) {
+          //   console.log('111111')
+          //   resolve(result)
+          // } else {
+          //   console.log('222222')
+          //   reject(result)
+          // }
         })
     })
   })
