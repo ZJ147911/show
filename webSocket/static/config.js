@@ -56,19 +56,11 @@ const mgsCallH5 = (params, options = {}) => {
       method,
       operationType,
       data: requestData,
-      headers: header,
-      getResponse: true
+      headers: header
     },
       function (result) {
-        console.log('🚀 ~ file: miniapp.js:47 ~ onBridgeReady ~ api, requestData, result', api,options, requestData, result)
-          resolve(result)
-        // const { header, resData } = result
-        // header && console.log('mgw-traceid', header['mgw-traceid'], 'result-status', header['result-status'])
-        // if ((resData && resData.success)|| resData.errorMsg || resData.errorCode) {
-        //   resolve(result)
-        // } else {
-        //   reject(result)
-        // }
+        console.log("🚀 ~ file: config.js:65 ~ returnnewPromise ~ result:", result)
+        resolve(result)
       })
   })
 }
@@ -97,19 +89,11 @@ const mgsCallNa = (params, options = {}) => {
       AlipayJSBridge.call('rpc', {
         operationType: operationType,
         requestData: requestData,
-        headers: header,
-        getResponse: true
+        headers: header
       },
         function (result) {
-          console.log("🚀 ~ file: config.js:107 ~ onBridgeReady ~ result",options, result)
-            resolve(result)
-          // if (result.resData && result.resData.success) {
-          //   console.log('111111')
-          //   resolve(result)
-          // } else {
-          //   console.log('222222')
-          //   reject(result)
-          // }
+          console.log("🚀 ~ file: config.js:107 ~ onBridgeReady ~ result", params, options, JSON.parse(JSON.stringify(result)))
+          resolve(result)
         })
     })
   })
@@ -127,4 +111,22 @@ function checkIsmPaasClient() {
 let request = checkIsmPaasClient() ? mgsCallNa : mgsCallH5
 
 
+function jsbCall(params, options) {
+	const { module, method } = options
+	let api = `${module}_${method}`
+	return new Promise((resolve) => {
+		onBridgeReady(function () {
+			AlipayJSBridge.call(api, params, (result) => {
+				if (typeof result !== 'object') {
+					console.warn(`[AlipayJSBridge] call result is not object`)
+					return
+				}
+				console.log("🚀 ~ file: jsb.js:17 ~ AlipayJSBridge.call ~ result", result)
+				resolve(result)
+			})
+		})
+	})
+}
+
+window.jsbCall = jsbCall
 window.request = request

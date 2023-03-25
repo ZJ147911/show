@@ -1,12 +1,12 @@
 {
   "name": "websocket",
   "version": "1.0.0",
-  "description": "测试webSockSet",
+  "description": "测试webSocket",
   "main": "index.js",
   "bin": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "pkg": "pkg -t win index.js"
+    "pkg": "pkg ."
   },
   "author": "zj",
   "license": "ISC",
@@ -16,6 +16,9 @@
     "socket.io": "^4.5.4"
   },
   "pkg": {
-    "assets": "/static/**/*"
+    "assets": "/static/**/*",
+    "outputPath": "dist",
+    "targets":[  "node14-linux-x64", "node14-macos-x64", "node14-win-x64"],
+    "name": "${name}-${version}"
   }
 }

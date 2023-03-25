@@ -3,9 +3,9 @@
  * @Copyright (c) 2022 by 赵军/公司名, All Rights Reserved.
  * @Date         :2022-12-15 12:56:37
  * @Description  :
- * @FilePath     :\项目展示\webSocket\index.js
+ * @FilePath     :\webSocket\index.js
  * @LastEditors  :赵军
- * @LastEditTime :2023-02-27 22:50:01
+ * @LastEditTime :2023-03-26 00:59:24
  */
 const express = require('express')
 const app = express()
@@ -44,6 +44,8 @@ function getNetworkIp() {
 const ip = getNetworkIp()
 
 
+
+
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
@@ -71,25 +73,17 @@ function mgsRequest(params, options) {
     }
   })
 }
-const { resultAdd } = require('./files.js')
 app.post('/mgs/*', async (req, res, next) => {
-  // console.log(req.body);
   const { params, options } = req.body
 
   const result = await mgsRequest(params, options)
   console.log("🚀 ~ file: index.js:80 ~ app.post ~ result:", result);
-  // console.log(result)
-  resultAdd(options, result.resData||result)
   res.json(result)
 })
-app.post('/ide/*', async (req, res, next) => {
-  // console.log(req.body);
-  // const { params, options } = req.body
-  console.log("🚀 ~ file: index.js:85 ~ app.post ~ req.body", req.body);
+app.post('/ideConsole/*', async (req, res, next) => {
+ const { params, options } = req.body
 
-  // const result = await mgsRequest(params, options)
-  // console.log(result)
-  // res.json(result)
+ io.emit('ideConsole', params, options)
   res.json({
     message: "插入成功！",
     success: 200,
@@ -108,11 +102,10 @@ function jsbRequest(params, options) {
 }
 
 app.post('/jsb/*', async (req, res, next) => {
-  // console.log(req.body);
   const { params, options } = req.body
 
   const result = await jsbRequest(params, options)
-  // console.log(result)
+  console.log("🚀 ~ file: index.js:107 ~ app.post ~ result:", result);
   res.json(result)
 })
 function jsbH5Request(params, options) {
@@ -127,11 +120,10 @@ function jsbH5Request(params, options) {
 }
 
 app.post('/jsbH5/*', async (req, res, next) => {
-  // console.log(req.body);
   const { params, options } = req.body
 
   const result = await jsbH5Request(params, options)
-  // console.log(result)
+  console.log("🚀 ~ file: index.js:126 ~ app.post ~ result:", result);
   res.json(result)
 })
 
@@ -143,6 +135,9 @@ function invokeCallbackHandler(callbackId, params) {
   }
 }
 io.on('connection', (socket) => {
+  socket.on("chat-message", (msg => {
+        io.emit("chat message", msg)
+    })),
   socket.on('mgs-res', msg => {
     // console.log(msg)
     var { callbackId } = msg
@@ -167,6 +162,5 @@ server.listen(3000, () => {
   console.log('listening on')
   ip.forEach((item) => {
     console.log(`${item.name} : http://${item.address}:3000`)
-
   })
 })
