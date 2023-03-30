@@ -3,9 +3,9 @@
  * @Copyright (c) 2022 by 赵军/公司名, All Rights Reserved.
  * @Date         :2022-12-15 12:56:37
  * @Description  :
- * @FilePath     :\webSocket\index.js
+ * @FilePath     :\项目展示\webSocket\index.js
  * @LastEditors  :赵军
- * @LastEditTime :2023-03-26 00:59:24
+ * @LastEditTime :2023-03-30 15:32:21
  */
 const express = require('express')
 const app = express()
@@ -48,6 +48,15 @@ const ip = getNetworkIp()
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+app.all('*', (req, res, next)=> {
+  res.header('Access-Control-Allow-Origin', req.headers.origin)//获取请求源 这样所有请求就都有访问权限了
+  res.header('Access-Control-Allow-Credentials', true)
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Content-Length, Authorization, Accept,X-Requested-With')
+  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
+  res.header('Content-Type', 'application/json;charset=utf-8')
+  next()
+})
 
 app.use(express.static(path.join(__dirname, '/static')))
 
