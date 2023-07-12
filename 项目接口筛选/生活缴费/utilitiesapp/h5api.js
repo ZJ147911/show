@@ -1,459 +1,385 @@
-exports.H5API = [
-	{
-		name: 'queryArea',
-		apiExplain: '查询省市接口',
-		urlSuffix: 'livelihood/product/getBusiCities',
-		method: 'POST',
-		isMock: false,
-		cache: false,
-		isSharebillService: false,
-		encryptTech: true,
-		gapiStr: 'sharebillsAgreeId',
-		mockUrl: 'mockdata/queryArea.json'
+exports.H5API = {
+	"adList": {
+		"hideTipOnError": true,
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"mockUrl": "mockdata/adList.json",
+		"urlSuffix": "adList"
 	},
-	{
-		name: 'queryOrg',
-		apiExplain: '查询缴费单位详细信息',
-		urlSuffix: 'livelihood/product/getOrgByOrgCode',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false,
-		encryptTech: true,
-		gapiStr: 'sharebillsAgreeId',
-		mockUrl: 'mockdata/queryOrg.json'
+	"checkInviteCode": {
+		"apiExplain": "邀请码验证接口",
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "billcenter/checkInviteCode"
 	},
-	{
-		name: 'updateMarkAndDate',
-		apiExplain: '修改备注名',
-		urlSuffix: 'updateBillAcctNo/V1',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: true,
-		mockUrl: 'mockdata/ubillNo.json'
+	"closeAutoPayment": {
+		"apiExplain": "关闭自动代缴",
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "billcenter/closeAutoPayment"
 	},
-	{
-		name: 'deleteBill',
-		apiExplain: '删除单条历史账单',
-		urlSuffix: 'deleteBillAcctNo/V1',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: true,
-		mockUrl: 'mockdata/dbillNo.json'
+	"closeBalWarn": {
+		"apiExplain": "关闭余额提醒",
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "billcenter/closeBalWarn"
 	},
-	{
-		name: 'adList',
-		urlSuffix: 'adList',
-		method: 'POST',
-		isSharebillService: false,
-		isMock: false,
-		hideTipOnError: true,
-		mockUrl: 'mockdata/adList.json'
+	"deleteBill": {
+		"apiExplain": "删除单条历史账单",
+		"isMock": false,
+		"isSharebillService": true,
+		"method": "POST",
+		"mockUrl": "mockdata/dbillNo.json",
+		"urlSuffix": "deleteBillAcctNo/V1"
 	},
-	{
-		name: 'history',
-		apiExplain: '根据用户订单号查询缴费记录',
-		urlSuffix: 'livelihood/product/queryBillTxnInfo',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false,
-		encryptTech: true,
-		gapiStr: 'sharebillsAgreeId',
-		mockUrl: 'mockdata/payhistory.json'
+	"equityOrder": {
+		"apiExplain": "生活+权益代扣接口",
+		"encryptTech": true,
+		"gapiStr": "handyserviceAgreeId",
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "handyservice/marketing/liveequity/order"
 	},
-	{
-		name: 'querySMS',
-		apiExplain: '获取短信通知接口是开通短信通知',
-		urlSuffix: 'queryAlertsSMS/V1',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: true,
-		mockUrl: 'mockdata/querySMS.json'
+	"festivalShow": {
+		"apiExplain": "春节红包展示查询接口",
+		"gapiStr": "handyserviceAgreeId",
+		"hideTipOnError": true,
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "handyservice/marketing/festivalShow"
 	},
-	{
-		name: 'queryBillInfo',
-		apiExplain: '订单号查询缴费记录',
-		urlSuffix: 'livelihood/product/queryBillTxnInfoByOrderNo',
-		method: 'POST',
-		isMock: false,
-		hideTipOnError: true,
-		isSharebillService: false,
-		encryptTech: true,
-		gapiStr: 'sharebillsAgreeId'
+	"getActivities": {
+		"encryptAll": true,
+		"gapiStr": "sharebillsAgreeId",
+		"hasResultWrap": true,
+		"hideTipOnError": true,
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "livelihood/product/getActivities"
 	},
-	{
-		name: 'sgccPreQuery',
-		apiExplain: '北京国电下单前先进行预查询',
-		urlSuffix: 'sgccPreQuery',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: true
+	"getBusitype": {
+		"apiExplain": "用于查询定位城市所支持的业务类型",
+		"encryptAll": true,
+		"gapiStr": "sharebillsAgreeId",
+		"hasResultWrap": true,
+		"hideTipOnError": true,
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "livelihood/product/getBusitype/v2"
 	},
-	{
-		name: 'sgccBindAcctNO',
-		apiExplain: '用于未在天津电订阅的用户去订阅',
-		urlSuffix: 'sgccBindAcctNO',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: true
+	"getNotice": {
+		"encryptAll": true,
+		"gapiStr": "sharebillsAgreeId",
+		"hasResultWrap": true,
+		"hideTipOnError": true,
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "livelihood/product/getNotice"
 	},
-	{
-		name: 'openAutoPayment',
-		apiExplain: '定时代缴开通',
-		urlSuffix: 'billcenter/openAutoPayment',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false
+	"getReward": {
+		"apiExplain": "红包-领取奖励接口",
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "redbag/missionOutput/getReward"
 	},
-	{
-		name: 'closeAutoPayment',
-		apiExplain: '关闭自动代缴',
-		urlSuffix: 'billcenter/closeAutoPayment',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false
+	"getVoucherList": {
+		"apiExplain": "获取家庭专区商城券列表",
+		"gapiStr": "familyAgreeId",
+		"hideTipOnError": true,
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "growth/family/getVoucherList"
 	},
-	{
-		name: 'modifyAutoPayment',
-		apiExplain: '修改定时代缴服务',
-		urlSuffix: 'billcenter/modifyAutoPayment',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false
+	"history": {
+		"apiExplain": "根据用户订单号查询缴费记录",
+		"encryptTech": true,
+		"gapiStr": "sharebillsAgreeId",
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"mockUrl": "mockdata/payhistory.json",
+		"urlSuffix": "livelihood/product/queryBillTxnInfo"
 	},
-	{
-		name: 'queryAutoPaymentDetail',
-		apiExplain: '定时代缴已开通用户信息查询',
-		urlSuffix: 'billcenter/queryAutoPaymentDetail',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false
+	"isAllow": {
+		"apiExplain": "生活+权益判断是否允许用户购买",
+		"apiFoxID": "/20043992",
+		"apiFoxYun": true,
+		"encryptAll": true,
+		"gapiStr": "handyserviceAgreeId",
+		"hideTipOnError": true,
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "handyservice/marketing/isAllow"
 	},
-	{
-		name: 'checkInviteCode',
-		apiExplain: '邀请码验证接口',
-		urlSuffix: 'billcenter/checkInviteCode',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false
+	"modifyAutoPayment": {
+		"apiExplain": "修改定时代缴服务",
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "billcenter/modifyAutoPayment"
 	},
-	{
-		name: 'queryMobileH',
-		apiExplain: '查询运营商归属地接口',
-		urlSuffix: 'queryMobileH',
-		method: 'POST',
-		hideTipOnError: true,
-		isMock: false,
-		isSharebillService: false,
-		gapiStr: 'queryMobilId'
+	"notBillOrgRecord": {
+		"apiExplain": "无交费单位用户反馈新增记录",
+		"encryptAll": true,
+		"gapiStr": "sharebillsAgreeId",
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "minsheng/livelihood/notBillOrgRecord"
 	},
-	{
-		name: 'queryPopupInfo',
-		apiExplain: '弹窗查询接口',
-		urlSuffix: 'handyservice/marketing/queryPopupInfo',
-		method: 'POST',
-		hideTipOnError: true,
-		isMock: false,
-		isSharebillService: false,
-		gapiStr: 'handyserviceAgreeId'
+	"obtainPopupPrize": {
+		"apiExplain": "弹窗奖励领取接口",
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "handyservice/marketing/obtainPopupPrize"
 	},
-	{
-		name: 'obtainPopupPrize',
-		apiExplain: '弹窗奖励领取接口',
-		urlSuffix: 'handyservice/marketing/obtainPopupPrize',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false
+	"openAutoPayment": {
+		"apiExplain": "定时代缴开通",
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "billcenter/openAutoPayment"
 	},
-	{
-		name: 'getReward',
-		apiExplain: '红包-领取奖励接口',
-		urlSuffix: 'redbag/missionOutput/getReward',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false
+	"openBalWarn": {
+		"apiExplain": "开通余额提醒",
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "billcenter/openBalWarn"
 	},
-	{
-		name: 'queryLiveActivity',
-		apiExplain: '查询本地配置活动接口',
-		urlSuffix: 'handyservice/live/queryLiveActivity',
-		method: 'POST',
-		hideTipOnError: true,
-		isMock: false,
-		isSharebillService: false,
-		gapiStr: 'handyserviceAgreeId'
+	"queryAll": {
+		"encryptAll": true,
+		"gapiStr": "sharebillsAgreeId",
+		"hasResultWrap": true,
+		"hideTipOnError": true,
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "livelihood/product/queryAll"
 	},
-	{
-		name: 'queryMarktingActivity',
-		apiExplain: '查询营销活动接口',
-		urlSuffix: 'handyservice/live/queryMarktingActivity',
-		method: 'POST',
-		hideTipOnError: true,
-		isMock: false,
-		isSharebillService: false,
-		gapiStr: 'handyserviceAgreeId'
+	"queryArea": {
+		"apiExplain": "查询省市接口",
+		"cache": false,
+		"encryptTech": true,
+		"gapiStr": "sharebillsAgreeId",
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"mockUrl": "mockdata/queryArea.json",
+		"urlSuffix": "livelihood/product/getBusiCities"
 	},
-	{
-		name: 'queryRedisSwitch',
-		apiExplain: '查询redis接口',
-		urlSuffix: 'handyservice/live/queryRedisSwitch',
-		method: 'POST',
-		hideTipOnError: true,
-		isMock: false,
-		isSharebillService: false,
-		gapiStr: 'handyserviceAgreeId'
+	"queryAutoPaymentDetail": {
+		"apiExplain": "定时代缴已开通用户信息查询",
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "billcenter/queryAutoPaymentDetail"
 	},
-	{
-		name: 'openBalWarn',
-		apiExplain: '开通余额提醒',
-		urlSuffix: 'billcenter/openBalWarn',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false
+	"queryBill": {
+		"apiExplain": "用户查询账单查询",
+		"apiFoxYun": false,
+		"encryptAll": true,
+		"gapiStr": "sharebillsAgreeId",
+		"hasResultWrap": true,
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"mockUrl": "mockdata/queryBill.json",
+		"staticMockUrl": "queryBill",
+		"urlSuffix": "livelihood/product/queryOwnBill"
 	},
-	{
-		name: 'updateBalWarn',
-		apiExplain: '修改余额提醒配置',
-		urlSuffix: 'billcenter/updateBalWarn',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false
+	"queryBillInfo": {
+		"apiExplain": "订单号查询缴费记录",
+		"encryptTech": true,
+		"gapiStr": "sharebillsAgreeId",
+		"hideTipOnError": true,
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "livelihood/product/queryBillTxnInfoByOrderNo"
 	},
-	{
-		name: 'closeBalWarn',
-		apiExplain: '关闭余额提醒',
-		urlSuffix: 'billcenter/closeBalWarn',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false
+	"queryFavorable": {
+		"apiExplain": "查询优惠接口",
+		"isSharebillService": true,
+		"method": "POST",
+		"noApi": true,
+		"urlSuffix": "payassistant-client?method=queryTradeInternalOrder"
 	},
-	{
-		name: 'tradeOrderClose',
-		apiExplain: '取消支付，关闭交易',
-		urlSuffix: 'sharebills-service/api/tradeOrderClose',
-		method: 'POST',
-		hideTipOnError: true,
-		isMock: false,
-		isSharebillService: false,
-		gapiStr: 'sharebillsAgreeId'
+	"queryFunds": {
+		"apiExplain": "查询资金源",
+		"gapiStr": "handyserviceAgreeId",
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "handyservice/marketing/liveequity/queryFunds"
 	},
-	{
-		name: 'festivalShow',
-		apiExplain: '春节红包展示查询接口',
-		urlSuffix: 'handyservice/marketing/festivalShow',
-		method: 'POST',
-		hideTipOnError: true,
-		isMock: false,
-		isSharebillService: false,
-		gapiStr: 'handyserviceAgreeId'
+	"queryHistoryBill": {
+		"apiExplain": "查询所有的历史户号",
+		"encryptAll": true,
+		"gapiStr": "sharebillsAgreeId",
+		"hasResultWrap": true,
+		"hideTipOnError": true,
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "livelihood/product/queryBillAcctNo"
 	},
-	{
-		name: 'getVoucherList',
-		apiExplain: '获取家庭专区商城券列表',
-		urlSuffix: 'growth/family/getVoucherList',
-		method: 'POST',
-		hideTipOnError: true,
-		isMock: false,
-		isSharebillService: false,
-		gapiStr: 'familyAgreeId'
+	"queryLiveActivity": {
+		"apiExplain": "查询本地配置活动接口",
+		"gapiStr": "handyserviceAgreeId",
+		"hideTipOnError": true,
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "handyservice/live/queryLiveActivity"
 	},
-	{
-		name: 'queryFunds',
-		apiExplain: '查询资金源',
-		urlSuffix: 'handyservice/marketing/liveequity/queryFunds',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false,
-		gapiStr: 'handyserviceAgreeId'
+	"queryMarktingActivity": {
+		"apiExplain": "查询营销活动接口",
+		"gapiStr": "handyserviceAgreeId",
+		"hideTipOnError": true,
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "handyservice/live/queryMarktingActivity"
 	},
-	{
-		name: 'queryMinusEquityRights',
-		apiExplain: '查询理财优惠券',
-		urlSuffix: 'handyservice/marketing/queryMinusEquityRights',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false,
-		gapiStr: 'handyserviceAgreeId'
+	"queryMinusEquityRights": {
+		"apiExplain": "查询理财优惠券",
+		"gapiStr": "handyserviceAgreeId",
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "handyservice/marketing/queryMinusEquityRights"
 	},
-	{
-		name: 'queryFavorable',
-		apiExplain: '查询优惠接口',
-		urlSuffix: 'payassistant-client?method=queryTradeInternalOrder',
-		method: 'POST',
-		isSharebillService: true,
-		noApi: true
+	"queryMobileH": {
+		"apiExplain": "查询运营商归属地接口",
+		"encryptTech": true,
+		"gapiStr": "queryMobilId",
+		"hideTipOnError": true,
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"operationType": "com.bestpay.handyservice.communication.product.service.api.basic.IBasicService.queryPhoneAttribution",
+		"urlSuffix": "handyservice/communication/queryPhoneAttribution"
 	},
-	{
-		name: '	queryOrgList',
-		apiExplain: '根据业务类型查询缴费单位列表',
-		urlSuffix: 'livelihood/product/getOrgsByBusiType',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false,
-		gapiStr: 'sharebillsAgreeId',
-		encryptAll: true,
-		hasResultWrap: true,
-		isRisk: true
+	"queryOrder": {
+		"apiExplain": "用户下单",
+		"encryptAll": true,
+		"gapiStr": "sharebillsAgreeId",
+		"hasResultWrap": true,
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"mockUrl": "mockdata/order.json",
+		"urlSuffix": "livelihood/product/order"
 	},
-	{
-		name: 'queryMarketScore',
-		apiExplain: '惠星查询接口',
-		urlSuffix: 'redbag/scoremarket/queryMarketScore',
-		method: 'POST',
-		hideTipOnError: true,
-		isMock: false,
-		isSharebillService: false,
-		gapiStr: 'starNoAgreeId',
-		encryptTech: true
+	"queryOrg": {
+		"apiExplain": "查询缴费单位详细信息",
+		"encryptTech": true,
+		"gapiStr": "sharebillsAgreeId",
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"mockUrl": "mockdata/queryOrg.json",
+		"urlSuffix": "livelihood/product/getOrgByOrgCode"
 	},
-	{
-		name: 'queryOutPutMarketProduct',
-		apiExplain: '惠星兑换列表',
-		urlSuffix: 'redbag/scoremarket/queryOutPutMarketProduct',
-		method: 'POST',
-		hideTipOnError: true,
-		isMock: false,
-		isSharebillService: false,
-		gapiStr: 'starAgreeId',
-		encryptTech: true
+	"queryOrgList": {
+		"apiExplain": "根据业务类型查询缴费单位列表",
+		"apiFoxID": "/37467858",
+		"apiFoxYun": true,
+		"encryptAll": true,
+		"gapiStr": "sharebillsAgreeId",
+		"hasResultWrap": true,
+		"isMock": false,
+		"isRisk": true,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "livelihood/product/getOrgsByBusiType"
 	},
-	{
-		name: 'equityOrder',
-		apiExplain: '生活+权益代扣接口',
-		urlSuffix: 'handyservice/marketing/liveequity/order',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false,
-		gapiStr: 'handyserviceAgreeId',
-		encryptTech: true
+	"queryOwnBill4Url": {
+		"encryptAll": true,
+		"gapiStr": "sharebillsAgreeId",
+		"hasResultWrap": true,
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "livelihood/product/queryOwnBill4Url"
 	},
-	{
-		name: 'getActivities',
-		urlSuffix: 'livelihood/product/getActivities',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false,
-		hideTipOnError: true,
-		gapiStr: 'sharebillsAgreeId',
-		encryptAll: true,
-		hasResultWrap: true
+	"queryPopupInfo": {
+		"apiExplain": "弹窗查询接口",
+		"gapiStr": "handyserviceAgreeId",
+		"hideTipOnError": true,
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "handyservice/marketing/queryPopupInfo"
 	},
-	{
-		name: 'getBusitype',
-		apiExplain: '用于查询定位城市所支持的业务类型',
-		urlSuffix: 'livelihood/product/getBusitype/v2',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false,
-		hideTipOnError: true,
-		gapiStr: 'sharebillsAgreeId',
-		encryptAll: true,
-		hasResultWrap: true
+	"queryRedisSwitch": {
+		"apiExplain": "查询redis接口",
+		"gapiStr": "handyserviceAgreeId",
+		"hideTipOnError": true,
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "handyservice/live/queryRedisSwitch"
 	},
-	{
-		name: 'queryBill',
-		apiExplain: '用户查询账单查询',
-		urlSuffix: 'livelihood/product/queryOwnBill',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false,
-		mockUrl: 'mockdata/queryBill.json',
-		gapiStr: 'sharebillsAgreeId',
-		encryptAll: true,
-		hasResultWrap: true
+	"querySMS": {
+		"apiExplain": "获取短信通知接口是开通短信通知 标记mpass",
+		"isMock": false,
+		"isSharebillService": true,
+		"method": "POST",
+		"mockUrl": "mockdata/querySMS.json",
+		"urlSuffix": "queryAlertsSMS/V1"
 	},
-	{
-		name: 'queryOrder',
-		apiExplain: '用户下单',
-		urlSuffix: 'livelihood/product/order',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false,
-		mockUrl: 'mockdata/order.json',
-		gapiStr: 'sharebillsAgreeId',
-		encryptAll: true,
-		hasResultWrap: true
+	"queryVoucher": {
+		"apiExplain": "户号查询页优惠券信息",
+		"apiFoxID": "/29361298",
+		"apiFoxYun": true,
+		"encryptAll": true,
+		"gapiStr": "handyserviceAgreeId",
+		"method": "POST",
+		"urlSuffix": "handyservice/marketing/queryVoucher"
 	},
-	{
-		name: 'queryHistoryBill',
-		apiExplain: '查询所有的历史户号',
-		urlSuffix: 'livelihood/product/queryBillAcctNo',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false,
-		hideTipOnError: true,
-		gapiStr: 'sharebillsAgreeId',
-		encryptAll: true,
-		hasResultWrap: true
+	"sgccPreQuery": {
+		"apiExplain": "北京国电下单前先进行预查询",
+		"isMock": false,
+		"isSharebillService": true,
+		"method": "POST",
+		"urlSuffix": "sgccPreQuery"
 	},
-	{
-		name: 'queryOwnBill4Url',
-		urlSuffix: 'livelihood/product/queryOwnBill4Url',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false,
-		gapiStr: 'sharebillsAgreeId',
-		encryptAll: true,
-		hasResultWrap: true
+	"tradeOrderClose": {
+		"apiExplain": "取消支付，关闭交易",
+		"gapiStr": "sharebillsAgreeId",
+		"hideTipOnError": true,
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "sharebills-service/api/tradeOrderClose"
 	},
-	{
-		name: 'getNotice',
-		urlSuffix: 'livelihood/product/getNotice',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false,
-		hideTipOnError: true,
-		gapiStr: 'sharebillsAgreeId',
-		encryptAll: true,
-		hasResultWrap: true
+	"updateBalWarn": {
+		"apiExplain": "修改余额提醒配置",
+		"isMock": false,
+		"isSharebillService": false,
+		"method": "POST",
+		"urlSuffix": "billcenter/updateBalWarn"
 	},
-	{
-		name: 'queryAll',
-		urlSuffix: 'livelihood/product/queryAll',
-		method: 'POST',
-		isMock: false,
-		isSharebillService: false,
-		hideTipOnError: true,
-		gapiStr: 'sharebillsAgreeId',
-		encryptAll: true,
-		hasResultWrap: true
-	},
-	{
-		name: 'queryTheMonthTaskListForLifePay',
-		apiExplain: '任务制获取任务列表接口',
-		urlSuffix: 'redbag/missionOutput/queryTheMonthTaskListForLifePay',
-		method: 'POST',
-		hideTipOnError: true,
-		isMock: false,
-		isSharebillService: false,
-		gapiStr: 'redBagAgreeId',
-		encryptAll: true
-	},
-	{
-		name: 'isAllow',
-		apiExplain: '生活+权益判断是否允许用户购买',
-		urlSuffix: 'handyservice/marketing/isAllow',
-		method: 'POST',
-		hideTipOnError: true,
-		isMock: false,
-		isSharebillService: false,
-		encryptAll: true,
-		gapiStr: 'handyserviceAgreeId'
-	},
-	{
-		name: 'notBillOrgRecord',
-		apiExplain: '无交费单位用户反馈新增记录',
-		urlSuffix: 'minsheng/livelihood/notBillOrgRecord',
-		method: 'POST',
-		gapiStr: 'sharebillsAgreeId',
-		encryptAll: true,
-		isSharebillService: false
-	},
-	{
-		name: 'queryVoucher',
-		apiExplain: '户号查询页优惠券信息',
-		urlSuffix: 'handyservice/marketing/queryVoucher',
-		method: 'POST',
-		encryptAll: true,
-		gapiStr: 'handyserviceAgreeId'
+	"updateMarkAndDate": {
+		"apiExplain": "修改备注名",
+		"isMock": false,
+		"isSharebillService": true,
+		"method": "POST",
+		"mockUrl": "mockdata/ubillNo.json",
+		"urlSuffix": "updateBillAcctNo/V1"
 	}
-];
+}
