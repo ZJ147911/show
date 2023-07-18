@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script src="./jsencrypt.min.js"></script>
+		<script>
+			class RSAUtils {
+				constructor() {
+					this.RSAUtils = new JSEncrypt();
+					this.publicKey = this.RSAUtils.getPublicKeyB64();
+					this.privateKey = this.RSAUtils.getPrivateKeyB64();
+				}
+				encrypt(publicKey, value) {
+					//加密前设置公钥
+					this.RSAUtils.setPublicKey(publicKey);
+					return this.RSAUtils.encrypt(value);
+				}
+				decrypt(privateKey, value) {
+					//解密前设置私钥
+					this.RSAUtils.setPrivateKey(privateKey);
+					return this.RSAUtils.decrypt(value);
+				}
+			}
+
+			const ce = (value) => {
+				const RSAUtils = new JSEncrypt();
+				const publicKey = RSAUtils.getPublicKeyB64();
+				const privateKey = RSAUtils.getPrivateKeyB64();
+				//加密
+				RSAUtils.setPublicKey(publicKey);
+				const encrypted = RSAUtils.encrypt(value);
+				//解密
+				RSAUtils.setPrivateKey(privateKey);
+				const decrypted = RSAUtils.decrypt(encrypted);
+				console.log('🚀 ~ file: index.js:22 ~ decrypted:', decrypted);
+			};
+			ce('fsdfsdfsfsdfsd4f54sdf45sd4f5sd45f45');
+		</script>
+	</body>
+</html>
