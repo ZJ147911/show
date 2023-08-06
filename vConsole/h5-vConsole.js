@@ -19,24 +19,20 @@ function wrapConsole(callback) {
 	}
 }
 
-
 wrapConsole((type, ...args) => {
 	if (args && args[0] && /^(--)|(🚀)/.test(args[0])) {
-		uni.request({
-			url: 'http://192.168.0.101:3000/ideConsole/' + type,
+		fetch('http://192.168.0.101:3000/ideConsole/' + type, {
 			method: 'POST',
 			headers: {
-				'content-type': 'application/json'
+				'Content-Type': 'application/json'
 			},
-			dataType: 'json',
-			data: {
+			body: JSON.stringify({
 				params: args,
 				options: type
-			},
-			success: function (res) {
-				console.log(res);
-			}
-		});
+			})
+		})
+			.then((response) => response.json())
+			.then((data) => console.log(data))
+			.catch((error) => console.error(error));
 	}
 });
-
