@@ -1,0 +1,238 @@
+<!--
+ * @Author       :赵军
+ * Copyright (c) 2022 by 赵军/公司名, All Rights Reserved.
+ * @Date         :2022-09-30 18:17:40
+ * @Description  :
+ * @FilePath     :\信息获取\index.html
+ * @LastEditors  :赵军
+ * @LastEditTime :2022-12-13 19:42:47
+-->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			.da {
+				width: 100vw;
+				height: 100vh;
+				padding: 20px 0;
+			}
+			#data1,
+			#data2,
+			#data3,
+			#data5,
+			#data4 {
+				width: 90%;
+				display: block;
+				margin: 10px auto;
+				font-size: 16px;
+				padding: 5px;
+				text-align: left;
+				line-height: 20px;
+			}
+
+			#data1 {
+				height: 30px;
+			}
+			#data2 {
+				height: 30px;
+			}
+			#data3 {
+				height: 30px;
+			}
+			#data5 {
+				height: 30px;
+			}
+			#data4 {
+				height: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="da">
+			<textarea id="data1"></textarea>
+			<textarea id="data2"></textarea>
+			<textarea id="data3"></textarea>
+			<textarea id="data4"></textarea>
+			<textarea id="data5"></textarea>
+		</div>
+	</body>
+<script>
+		let productNo = '',
+			operatorNo = '',
+			ipTId = '',
+			appVersionInfo = '',
+			sessionKey = '';
+		const obj = {
+			ENV_H5_CONFIG: 'test',
+			test: 'https://h5.test.bestpay.net/common/js/bestpay-html5-3.0.js',
+			pre: 'https://h5-pre.bestpay.com.cn/common/js/bestpay-html5-3.0.js',
+			prod: 'https://h5.bestpay.cn/common/js/bestpay-html5-3.0.js',
+			prodBen: './bestpay-html5-3.0.js',
+
+			addScript(url, callback) {
+				const scriptDom = document.createElement('script');
+				scriptDom.setAttribute('type', 'text/javascript');
+				scriptDom.setAttribute('src', url);
+				document.getElementsByTagName('head')[0].appendChild(scriptDom);
+				scriptDom.onload = function () {
+					callback && callback();
+				};
+			},
+			autoLogin(params = {}) {
+				return new Promise((resolve, reject) => {
+					BestpayHtml5.User.autoLogin(
+						params,
+						(val) => {
+							sessionKey = val.sessionKey;
+							if (val.value && val.value.productNo) {
+								productNo = val.value.productNo;
+							}
+							resolve(val);
+						},
+						(err) => {
+							reject(err);
+						},
+						() => {}
+					);
+				});
+			},
+			getProductNo() {
+				return new Promise((resolve, reject) => {
+					if (productNo) {
+						resolve(productNo);
+					} else {
+						BestpayHtml5.User.getProductNo(
+							{
+								noAutoLogin: true
+							},
+							(val) => {
+								productNo = val.productNo;
+								resolve(val.productNo);
+							},
+							(err) => {
+								resolve('');
+							}
+						);
+					}
+				});
+			},
+			getSessionKey() {
+				return new Promise((resolve, reject) => {
+					if (sessionKey) {
+						resolve(sessionKey);
+					} else {
+						BestpayHtml5.User.getSessionKey(
+							{
+								noAutoLogin: true
+							},
+							(val) => {
+								sessionKey = val.sessionKey;
+								resolve(val.sessionKey);
+							},
+							() => {
+								resolve('');
+							}
+						);
+					}
+				});
+			},
+
+			getOperatorNo() {
+				return new Promise((resolve) => {
+					if (operatorNo) {
+						resolve(operatorNo);
+					} else {
+						BestpayHtml5.User.getOperatorNo(
+							{},
+							(obj) => {
+								operatorNo = obj.operatorNo;
+								resolve(obj.operatorNo);
+							},
+							(obj) => {
+								console.warn(`获取operatorNo失败:${JSON.stringify(obj)}`);
+								resolve('');
+							}
+						);
+					}
+				});
+			},
+			getAppInfo(params = {}) {
+				return new Promise((resolve) => {
+					BestpayHtml5.APP.getAppInfo(
+						params,
+						(obj) => {
+							if (obj.appVersion) {
+								appVersionInfo = JSON.stringify(obj);
+								resolve(obj);
+							} else {
+								resolve({});
+							}
+						},
+						() => {
+							resolve({});
+						},
+						() => {
+							resolve({});
+						}
+					);
+				});
+			},
+			getIpTId(params = {}) {
+				return new Promise((resolve) => {
+					BestpayHtml5.User.getIpTId(
+						params,
+						(obj) => {
+							ipTId=obj.ipTId;
+								resolve(obj.ipTId);
+						},
+						(err) => {
+							resolve({});
+						},
+						(err) => {
+							resolve({});
+						}
+					);
+				});
+			}
+		};
+		function setSaConfig(res) {
+			obj.autoLogin().then((val) => {
+				console.log('🚀 ~ file: index.html ~ line 129 ~ obj.autoLogin ~ val', val);
+				Promise.all([obj.getProductNo(), obj.getSessionKey(), obj.getOperatorNo(), obj.getAppInfo(), obj.getIpTId()]).then((res) => {
+					console.log('🚀 ~ file: index.html ~ line 131 ~ Promise.all ~ res', {
+						productNo:res[0],
+						sessionKey:res[1],
+						operatorNo:res[2],
+						appVersionInfo:res[3],
+						ipTId:res[4]
+					});
+					document.getElementById('data1').innerText = `${productNo}`;
+					document.getElementById('data2').innerText = `${sessionKey}`;
+					document.getElementById('data3').innerText = `${operatorNo}`;
+					document.getElementById('data4').innerText = `${appVersionInfo}`;
+					document.getElementById('data5').innerText = `${ipTId}`;
+				});
+			});
+		}
+		if (!window.BestpayHtml5) {
+			obj.addScript(obj[obj.ENV_H5_CONFIG], () => {
+				window.BestpayHtml5 && BestpayHtml5.config('0', false, '45', '4500', true);
+				setSaConfig();
+			});
+		} else {
+			setSaConfig();
+		}
+	</script>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script src="./jsencrypt.js"></script>
+		<script>
+			const clientKey = {}
+            console.log(parseInt(Math.random() * 100000, 10))
+			const RSAUtils = new JSEncrypt()
+			clientKey.clientRsaPrivateKey = RSAUtils.getPrivateKeyB64()
+			clientKey.clientRsaPublicKey = RSAUtils.getPublicKeyB64()
+
+			console.log("🚀 ~ file: a.js ~ line 13 ~ clientKey", clientKey)
+
+		</script>
+	</body>
+</html>
