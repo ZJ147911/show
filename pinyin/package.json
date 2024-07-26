@@ -9,6 +9,7 @@
   "author": "zj",
   "license": "ISC",
   "dependencies": {
+    "@lztooler/img": "^1.0.6",
     "fs-extra": "^10.1.0",
     "pinyin-pro": "^3.11.0"
   }
