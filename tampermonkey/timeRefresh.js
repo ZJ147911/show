@@ -8,6 +8,8 @@
 // @author       zj
 // @match        https://h5performance.tool.bestpay.net/mpaas/*
 // @match        https://*.baidu.com/*
+// @match        https://yops.tool.bestpay.net/*
+// @match        https://sso.tool.bestpay.net//*
 // @match        https://*.bestpay.com.cn/*
 // @grant        none
 // @compatible   chrome
