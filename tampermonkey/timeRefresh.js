@@ -11,6 +11,7 @@
 // @match        https://yops.tool.bestpay.net/*
 // @match        https://sso.tool.bestpay.net//*
 // @match        https://*.bestpay.com.cn/*
+// @match        https://h5.test.bestpay.net/*
 // @grant        none
 // @compatible   chrome
 // @license      GPL-3.0
