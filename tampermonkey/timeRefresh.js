@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @updateURL    https://gitee.com/zj147/show/raw/zj/tampermonkey/timeRefresh.js
 // @downloadURL  https://gitee.com/zj147/show/raw/zj/tampermonkey/timeRefresh.js
-// @version      0.0.1
+// @version      0.0.2
 // @description  定时刷新脚本
 // @author       zj
 // @match        https://h5performance.tool.bestpay.net/mpaas/*
